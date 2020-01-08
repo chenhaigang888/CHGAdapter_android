@@ -1,0 +1,2 @@
+include ':app', ':chgadapter'
+rootProject.name='CHGAdapterDemo'
