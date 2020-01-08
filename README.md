@@ -1,0 +1,1 @@
+# CHGAdapter_android
