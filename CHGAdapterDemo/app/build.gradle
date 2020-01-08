@@ -10,6 +10,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    if(project.hasProperty('devBuild')){
+        splits.abi.enable = false
+        splits.density.enable = false
+        aaptOptions.cruncherEnabled = false
+    }
+
     buildTypes {
         release {
             minifyEnabled false

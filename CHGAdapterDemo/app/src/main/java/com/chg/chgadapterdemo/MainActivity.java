@@ -12,6 +12,7 @@ import com.chg.chgadapter.ModelProtocol;
 import com.chg.chgadapterdemo.Model.BannerItemModel;
 import com.chg.chgadapterdemo.Model.BannersModel;
 import com.chg.chgadapterdemo.Model.Friend;
+import com.chg.chgadapterdemo.Model.SearchItem;
 import com.chg.chgadapterdemo.Model.User;
 
 import java.util.ArrayList;
@@ -32,14 +33,23 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleView);
 
         LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
         recyclerView.setLayoutManager(manager);
 
-        recyclerView.setData(getUsers());
+
+        recyclerView.setData(getSearchItemPage());
 
 
+    }
+
+    public List<ModelProtocol> getSearchItemPage(){
+        List<ModelProtocol> modelProtocols = new ArrayList<>();
+        for (int i = 0; i<10; i++) {
+            modelProtocols.add(new SearchItem(0,getUsers()));
+        }
+        return  modelProtocols;
     }
 
     public List<ModelProtocol> getUsers() {
