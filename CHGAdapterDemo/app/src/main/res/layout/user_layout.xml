@@ -56,9 +56,9 @@
 
         <com.chg.chgadapter.CHGRecycleView
             android:id="@+id/recyclerView"
+            android:tag="111"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-
             android:layout_marginBottom="20dp"
             android:background="#ffff00" />
     </LinearLayout>

@@ -33,15 +33,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleView);
 
         LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
-        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(manager);
-
-
-        recyclerView.setData(getSearchItemPage());
-
-
+        recyclerView.setData(getUsers());
     }
 
     public List<ModelProtocol> getSearchItemPage(){
