@@ -40,17 +40,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setData(getUsers());
     }
 
-    public List<ModelProtocol> getSearchItemPage(){
-        List<ModelProtocol> modelProtocols = new ArrayList<>();
-        for (int i = 0; i<10; i++) {
-            modelProtocols.add(new SearchItem(0,getUsers()));
-        }
-        return  modelProtocols;
-    }
 
-    public List<ModelProtocol> getUsers() {
-        List<ModelProtocol> modelProtocols = new ArrayList<>();
 
+    public List getUsers() {
+        List list = new ArrayList();
         //添加用户
         User user = null;
         for (int i = 0; i < 100; i++) {
@@ -64,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     bannerItemModels.add(bannerItemModel);
                 }
                 bannersModel.setBannerItemModels(bannerItemModels);
-                modelProtocols.add(bannersModel);
+                list.add(bannersModel);
             }
 
             user = new User();
@@ -78,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
                 friends.add(friend);
             }
             user.setFriends(friends);
-            modelProtocols.add(user);
+            list.add(user);
         }
-        return modelProtocols;
+        return list;
     }
 
 }

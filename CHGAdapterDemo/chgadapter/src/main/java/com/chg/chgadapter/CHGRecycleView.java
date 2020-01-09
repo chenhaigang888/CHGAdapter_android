@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class CHGRecycleView extends RecyclerView {
+public class CHGRecycleView<MP extends  ModelProtocol> extends RecyclerView  {
 
 
-    private List<ModelProtocol> data;
+    private List<MP> data;
 
     public CHGRecycleView(@NonNull Context context) {
         super(context);
@@ -28,7 +28,7 @@ public class CHGRecycleView extends RecyclerView {
         super(context, attrs, defStyle);
     }
 
-    public List<ModelProtocol> getData() {
+    public List<MP> getData() {
         return data;
     }
 
@@ -40,7 +40,7 @@ public class CHGRecycleView extends RecyclerView {
         ((com.chg.chgadapter.Adapter)getAdapter()).setEventTransmissionListener(eventTransmissionListener);
     }
 
-    public void setData(List<ModelProtocol> data) {
+    public void setData(List<MP> data) {
         this.data = data;
         setAdapter(new com.chg.chgadapter.Adapter(data,getContext()));
     }
@@ -51,41 +51,5 @@ public class CHGRecycleView extends RecyclerView {
         if (adapter instanceof com.chg.chgadapter.Adapter) {
             super.setAdapter(adapter);
         } else new Exception("CHGRecycleView's adapter must use com.example.test.CHGAdapter.Adapter or sub Class of com.example.test.CHGAdapter.Adapter");
-    }
-
-
-    /**
-     * 分发事件
-     * @param ev
-     * @return
-     */
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        String tag = getTag()+"";
-        if ( tag.equals("111")) {
-            Log.i("=================","getTag()"+getTag());
-            return true;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    /**
-     * 拦截
-     * @param e
-     * @return
-     */
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent e) {
-        return super.onInterceptTouchEvent(e);
-    }
-
-    /**
-     * 消费
-     * @param e
-     * @return
-     */
-    @Override
-    public boolean onTouchEvent(MotionEvent e) {
-        return super.onTouchEvent(e);
     }
 }

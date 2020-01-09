@@ -12,9 +12,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter {
+public class Adapter<MP extends  ModelProtocol> extends RecyclerView.Adapter {
 
-    private List<ModelProtocol> models;
+    private List<MP> models;
     private Context context;
     private EventTransmissionListener eventTransmissionListener;
 
@@ -26,7 +26,7 @@ public class Adapter extends RecyclerView.Adapter {
         this.eventTransmissionListener = eventTransmissionListener;
     }
 
-    public Adapter(List<ModelProtocol> models, Context context) {
+    public Adapter(List<MP> models, Context context) {
         this.models = models;
         this.context = context;
     }
