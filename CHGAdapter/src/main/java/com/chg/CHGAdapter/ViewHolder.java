@@ -2,7 +2,6 @@ package com.chg.CHGAdapter;
 
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -29,7 +28,7 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
         this.itemView = itemView;
     }
 
-    public ViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
+    public ViewHolder(View itemView, EventTransmissionListener eventTransmissionListener) {
         super(itemView);
         this.itemView = itemView;
         this.eventTransmissionListener = eventTransmissionListener;
@@ -37,7 +36,8 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * 绑定数据
-     * @param modelProtocol  model
+     *
+     * @param modelProtocol model
      */
     public abstract void onBindViewHolder(ModelProtocol modelProtocol);
 }

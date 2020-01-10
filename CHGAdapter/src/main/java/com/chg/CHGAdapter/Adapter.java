@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Constructor;
@@ -13,10 +12,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
- *
  * @param <MP> MP extends ModelProtocol
  */
-public class Adapter<MP extends  ModelProtocol> extends RecyclerView.Adapter {
+public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
 
     private List<MP> models;
     private Context context;
@@ -40,15 +38,14 @@ public class Adapter<MP extends  ModelProtocol> extends RecyclerView.Adapter {
         return position;
     }
 
-    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ModelProtocol model = models.get(viewType);
-        View view = LayoutInflater.from(context).inflate(model.getResource(parent,viewType), parent, false);
+        View view = LayoutInflater.from(context).inflate(model.getResource(parent, viewType), parent, false);
         Class<RecyclerView.ViewHolder> viewHolder = model.getHolderClass();
         try {
             Constructor c2 = viewHolder.getDeclaredConstructor(View.class, EventTransmissionListener.class);
-            RecyclerView.ViewHolder obj = (RecyclerView.ViewHolder) c2.newInstance(view,eventTransmissionListener);
+            RecyclerView.ViewHolder obj = (RecyclerView.ViewHolder) c2.newInstance(view, eventTransmissionListener);
             return obj;
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
@@ -63,7 +60,7 @@ public class Adapter<MP extends  ModelProtocol> extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ((ViewHolder) holder).onBindViewHolder(models.get(position));
     }
 
