@@ -9,10 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.chg.chgadapter.CHGRecycleView;
-import com.chg.chgadapter.EventTransmissionListener;
-import com.chg.chgadapter.ModelProtocol;
-import com.chg.chgadapter.ViewHolder;
+import com.chg.CHGAdapter.CHGRecycleView;
+import com.chg.CHGAdapter.EventTransmissionListener;
+import com.chg.CHGAdapter.ModelProtocol;
+import com.chg.CHGAdapter.ViewHolder;
 import com.chg.chgadapterdemo.Model.User;
 import com.chg.chgadapterdemo.R;
 

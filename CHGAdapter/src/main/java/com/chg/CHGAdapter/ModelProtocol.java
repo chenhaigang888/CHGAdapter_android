@@ -1,4 +1,4 @@
-package com.chg.chgadapter;
+package com.chg.CHGAdapter;
 
 import android.view.ViewGroup;
 

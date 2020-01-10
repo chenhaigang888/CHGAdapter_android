@@ -1,4 +1,4 @@
-package com.chg.chgadapter;
+package com.chg.CHGAdapter;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -37,22 +37,22 @@ public class CHGRecycleView extends RecyclerView  {
     }
 
     public EventTransmissionListener getEventTransmissionListener() {
-        return ((com.chg.chgadapter.Adapter)getAdapter()).getEventTransmissionListener();
+        return ((com.chg.CHGAdapter.Adapter)getAdapter()).getEventTransmissionListener();
     }
 
     public void setEventTransmissionListener(EventTransmissionListener eventTransmissionListener) {
-        ((com.chg.chgadapter.Adapter)getAdapter()).setEventTransmissionListener(eventTransmissionListener);
+        ((com.chg.CHGAdapter.Adapter)getAdapter()).setEventTransmissionListener(eventTransmissionListener);
     }
 
     public void setData(List<ModelProtocol> data) {
         this.data = data;
-        setAdapter(new com.chg.chgadapter.Adapter(data,getContext()));
+        setAdapter(new com.chg.CHGAdapter.Adapter(data,getContext()));
     }
 
 
     @Override
     public void setAdapter(@Nullable Adapter adapter) {
-        if (adapter instanceof com.chg.chgadapter.Adapter) {
+        if (adapter instanceof com.chg.CHGAdapter.Adapter) {
             super.setAdapter(adapter);
         } else new Exception("CHGRecycleView's adapter must use com.example.test.CHGAdapter.Adapter or sub Class of com.example.test.CHGAdapter.Adapter");
     }

@@ -54,7 +54,7 @@
             android:layout_marginRight="10dp"
             android:textAlignment="center" />
 
-        <com.chg.chgadapter.CHGRecycleView
+        <com.chg.CHGAdapter.CHGRecycleView
             android:id="@+id/recyclerView"
             android:tag="111"
             android:layout_width="match_parent"

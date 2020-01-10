@@ -5,9 +5,9 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
-import com.chg.chgadapter.EventTransmissionListener;
-import com.chg.chgadapter.ModelProtocol;
-import com.chg.chgadapter.ViewHolder;
+import com.chg.CHGAdapter.EventTransmissionListener;
+import com.chg.CHGAdapter.ModelProtocol;
+import com.chg.CHGAdapter.ViewHolder;
 import com.chg.chgadapterdemo.R;
 
 

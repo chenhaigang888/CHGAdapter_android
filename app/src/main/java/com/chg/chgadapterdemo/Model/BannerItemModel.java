@@ -3,7 +3,7 @@ package com.chg.chgadapterdemo.Model;
 
 import android.view.ViewGroup;
 
-import com.chg.chgadapter.ModelProtocol;
+import com.chg.CHGAdapter.ModelProtocol;
 import com.chg.chgadapterdemo.Holder.BannerItemViewHolder;
 import com.chg.chgadapterdemo.R;
 

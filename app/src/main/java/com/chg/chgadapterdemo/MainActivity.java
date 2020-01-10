@@ -7,12 +7,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.chg.chgadapter.CHGRecycleView;
-import com.chg.chgadapter.ModelProtocol;
+import com.chg.CHGAdapter.CHGRecycleView;
+import com.chg.CHGAdapter.ModelProtocol;
 import com.chg.chgadapterdemo.Model.BannerItemModel;
 import com.chg.chgadapterdemo.Model.BannersModel;
 import com.chg.chgadapterdemo.Model.Friend;
-import com.chg.chgadapterdemo.Model.SearchItem;
 import com.chg.chgadapterdemo.Model.User;
 
 import java.util.ArrayList;
