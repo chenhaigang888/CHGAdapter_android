@@ -1,2 +1,2 @@
-include ':app', ':chgadapter'
+include ':app', ':CHGAdapter'
 rootProject.name='CHGAdapterDemo'
