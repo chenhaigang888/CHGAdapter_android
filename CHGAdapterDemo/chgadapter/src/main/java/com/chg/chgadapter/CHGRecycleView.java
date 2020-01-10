@@ -2,19 +2,23 @@ package com.chg.chgadapter;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+
+
 import java.util.List;
 
-public class CHGRecycleView<MP extends  ModelProtocol> extends RecyclerView  {
+/**
+ *
+ */
+public class CHGRecycleView extends RecyclerView  {
 
 
-    private List<MP> data;
+    private List<ModelProtocol> data;
 
     public CHGRecycleView(@NonNull Context context) {
         super(context);
@@ -28,7 +32,7 @@ public class CHGRecycleView<MP extends  ModelProtocol> extends RecyclerView  {
         super(context, attrs, defStyle);
     }
 
-    public List<MP> getData() {
+    public List<ModelProtocol> getData() {
         return data;
     }
 
@@ -40,7 +44,7 @@ public class CHGRecycleView<MP extends  ModelProtocol> extends RecyclerView  {
         ((com.chg.chgadapter.Adapter)getAdapter()).setEventTransmissionListener(eventTransmissionListener);
     }
 
-    public void setData(List<MP> data) {
+    public void setData(List<ModelProtocol> data) {
         this.data = data;
         setAdapter(new com.chg.chgadapter.Adapter(data,getContext()));
     }

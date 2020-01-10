@@ -12,6 +12,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+/**
+ *
+ * @param <MP> MP extends ModelProtocol
+ */
 public class Adapter<MP extends  ModelProtocol> extends RecyclerView.Adapter {
 
     private List<MP> models;
