@@ -1,7 +1,9 @@
 package com.chg.chgadapterdemo;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CHGRecycleView recyclerView;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,43 +39,64 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(manager);
-        recyclerView.setData(getUsers());
+//        recyclerView.setData(getUsers());
+        recyclerView.setData(getFriends());
     }
 
-
-
-    public List getUsers() {
+    /**
+     * Demo 1
+     *
+     * @return
+     */
+    public List getFriends() {
         List list = new ArrayList();
-        //添加用户
-        User user = null;
-        for (int i = 0; i < 100; i++) {
-            if (i == 1) {
-                //添加一个banner
-                BannersModel bannersModel = new BannersModel();
-                BannerItemModel bannerItemModel;
-                List<ModelProtocol> bannerItemModels = new ArrayList<>();
-                for (int ii=0; ii<10; ii++) {
-                    bannerItemModel = new BannerItemModel();
-                    bannerItemModels.add(bannerItemModel);
-                }
-                bannersModel.setBannerItemModels(bannerItemModels);
-                list.add(bannersModel);
-            }
-
-            user = new User();
-            user.setUsername("姓名" + i);
-            user.setGender(i % 2 == 0 ? "男" : "女");
-            List<ModelProtocol> friends = new ArrayList<>();
-            for (int j = 0; j < 10; j++) {
-                Friend friend = new Friend();
-                friend.setUsername("姓名" + j);
-                friend.setGender(j % 2 == 0 ? "男" : "女");
-                friends.add(friend);
-            }
-            user.setFriends(friends);
-            list.add(user);
+        Friend friend;
+        for (int ii = 0; ii < 10; ii++) {
+            friend = new Friend();
+            friend.setUsername("姓名" + ii);
+            friend.setGender(ii % 2 == 0 ? "男" : "女");
+            list.add(friend);
         }
         return list;
     }
+
+//    /**
+//     * Demo 2
+//     * @return
+//     */
+//    public List getUsers() {
+//        List list = new ArrayList();
+//        //添加用户
+//        User user = null;
+//        for (int i = 0; i < 100; i++) {
+//            if (i == 1) {
+//                //添加一个banner
+//                BannersModel bannersModel = new BannersModel();
+//                BannerItemModel bannerItemModel;
+//                List<ModelProtocol> bannerItemModels = new ArrayList<>();
+//                for (int ii = 0; ii < 10; ii++) {
+//                    bannerItemModel = new BannerItemModel();
+//                    bannerItemModels.add(bannerItemModel);
+//                }
+//                bannersModel.setBannerItemModels(bannerItemModels);
+//                list.add(bannersModel);
+//            }
+//
+//            user = new User();
+//            user.setUsername("姓名" + i);
+//            user.setGender(i % 2 == 0 ? "男" : "女");
+//            List<ModelProtocol> friends = new ArrayList<>();
+//            for (int j = 0; j < 10; j++) {
+//                Friend friend = new Friend();
+//                friend.setUsername("姓名" + j);
+//                friend.setGender(j % 2 == 0 ? "男" : "女");
+//                friends.add(friend);
+//            }
+//            user.setFriends(friends);
+//            list.add(user);
+//        }
+//        return list;
+//    }
+
 
 }
