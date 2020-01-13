@@ -1,9 +1,9 @@
-package com.chg.chgadapterdemo.Model;
+package com.chg.chgadapterdemo.demo.Model;
 
 import android.view.ViewGroup;
 
 import com.chg.CHGAdapter.ModelProtocol;
-import com.chg.chgadapterdemo.Holder.SearchItemViewHolder;
+import com.chg.chgadapterdemo.demo.Holder.SearchItemViewHolder;
 import com.chg.chgadapterdemo.R;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class SearchItem implements ModelProtocol {
     }
 
     @Override
-    public Class getHolderClass() {
+    public Class getHolderClass(ViewGroup parent, int position) {
         return SearchItemViewHolder.class;
     }
 }

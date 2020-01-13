@@ -1,7 +1,12 @@
 package com.chg.CHGAdapter;
 
+import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -10,7 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 public abstract class ViewHolder extends RecyclerView.ViewHolder {
 
     private EventTransmissionListener eventTransmissionListener;
-    private View itemView;
+//    private View itemView;
+    private ViewGroup parent;
+    private int layoutResID;
+
+    public Context getContext() {
+        return itemView.getContext();
+    }
+
+    public ViewGroup getParent() {
+        return parent;
+    }
+
+    public void setParent(ViewGroup parent) {
+        this.parent = parent;
+    }
 
     public EventTransmissionListener getEventTransmissionListener() {
         return eventTransmissionListener;
@@ -24,14 +43,26 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
         return itemView;
     }
 
-    public void setItemView(View itemView) {
-        this.itemView = itemView;
+    @Nullable
+    public final <T extends View> T findViewById(@IdRes int id) {
+        return itemView.findViewById(id);
     }
 
     public ViewHolder(View itemView, EventTransmissionListener eventTransmissionListener) {
         super(itemView);
-        this.itemView = itemView;
+
         this.eventTransmissionListener = eventTransmissionListener;
+
+    }
+
+
+
+    public void setContentView(@LayoutRes int layoutResID) {
+        this.layoutResID = layoutResID;
+    }
+
+    public int getLayoutResID() {
+        return layoutResID;
     }
 
     /**

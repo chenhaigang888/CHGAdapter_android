@@ -1,10 +1,10 @@
-package com.chg.chgadapterdemo.Model;
+package com.chg.chgadapterdemo.demo.Model;
 
 import android.view.ViewGroup;
 
 
 import com.chg.CHGAdapter.ModelProtocol;
-import com.chg.chgadapterdemo.Holder.UserViewHolder;
+import com.chg.chgadapterdemo.demo.Holder.UserViewHolder;
 import com.chg.chgadapterdemo.R;
 
 import java.util.List;
@@ -54,7 +54,7 @@ public class User implements ModelProtocol {
     }
 
     @Override
-    public Class getHolderClass() {
+    public Class getHolderClass(ViewGroup parent, int position) {
         return UserViewHolder.class;
     }
 }

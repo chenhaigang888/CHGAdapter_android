@@ -18,7 +18,7 @@ public interface ModelProtocol {
      * 当model所对应的Holder类
      * @return
      */
-    public Class getHolderClass();
+    public Class getHolderClass(ViewGroup parent, int position);
 
 }
 

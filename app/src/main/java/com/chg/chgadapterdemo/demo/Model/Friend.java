@@ -1,9 +1,9 @@
-package com.chg.chgadapterdemo.Model;
+package com.chg.chgadapterdemo.demo.Model;
 
 
 import android.view.ViewGroup;
 
-import com.chg.chgadapterdemo.Holder.FriendViewHolder;
+import com.chg.chgadapterdemo.demo.Holder.FriendViewHolder;
 import com.chg.chgadapterdemo.R;
 
 public class Friend extends User {
@@ -13,7 +13,7 @@ public class Friend extends User {
     }
 
     @Override
-    public Class getHolderClass() {
+    public Class getHolderClass(ViewGroup parent, int position) {
         return FriendViewHolder.class;
     }
 }

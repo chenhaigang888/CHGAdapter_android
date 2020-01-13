@@ -1,6 +1,7 @@
 package com.chg.CHGAdapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,15 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
     private List<MP> models;
     private Context context;
     private EventTransmissionListener eventTransmissionListener;
+    private Object customData;
+
+    public Object getCustomData() {
+        return customData;
+    }
+
+    public void setCustomData(Object customData) {
+        this.customData = customData;
+    }
 
     public EventTransmissionListener getEventTransmissionListener() {
         return eventTransmissionListener;
@@ -42,10 +52,11 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ModelProtocol model = models.get(viewType);
         View view = LayoutInflater.from(context).inflate(model.getResource(parent, viewType), parent, false);
-        Class<RecyclerView.ViewHolder> viewHolder = model.getHolderClass();
+        Class<RecyclerView.ViewHolder> viewHolder = model.getHolderClass(parent,viewType);
         try {
             Constructor c2 = viewHolder.getDeclaredConstructor(View.class, EventTransmissionListener.class);
-            RecyclerView.ViewHolder obj = (RecyclerView.ViewHolder) c2.newInstance(view, eventTransmissionListener);
+            ViewHolder obj = (ViewHolder) c2.newInstance(view, eventTransmissionListener);
+            obj.setParent(parent);
             return obj;
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

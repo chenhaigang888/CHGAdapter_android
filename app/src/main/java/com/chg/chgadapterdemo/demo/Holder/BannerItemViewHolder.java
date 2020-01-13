@@ -1,4 +1,4 @@
-package com.chg.chgadapterdemo.Holder;
+package com.chg.chgadapterdemo.demo.Holder;
 
 import android.view.View;
 import android.widget.ImageView;

@@ -1,10 +1,10 @@
-package com.chg.chgadapterdemo.Model;
+package com.chg.chgadapterdemo.demo.Model;
 
 
 import android.view.ViewGroup;
 
 import com.chg.CHGAdapter.ModelProtocol;
-import com.chg.chgadapterdemo.Holder.BannerItemViewHolder;
+import com.chg.chgadapterdemo.demo.Holder.BannerItemViewHolder;
 import com.chg.chgadapterdemo.R;
 
 public class BannerItemModel implements ModelProtocol {
@@ -15,7 +15,7 @@ public class BannerItemModel implements ModelProtocol {
     }
 
     @Override
-    public Class getHolderClass() {
+    public Class getHolderClass(ViewGroup parent, int position) {
         return BannerItemViewHolder.class;
     }
 }

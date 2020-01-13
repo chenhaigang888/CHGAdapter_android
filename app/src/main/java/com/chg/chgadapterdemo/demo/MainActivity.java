@@ -1,4 +1,4 @@
-package com.chg.chgadapterdemo;
+package com.chg.chgadapterdemo.demo;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -10,11 +10,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chg.CHGAdapter.CHGRecycleView;
-import com.chg.CHGAdapter.ModelProtocol;
-import com.chg.chgadapterdemo.Model.BannerItemModel;
-import com.chg.chgadapterdemo.Model.BannersModel;
-import com.chg.chgadapterdemo.Model.Friend;
-import com.chg.chgadapterdemo.Model.User;
+import com.chg.chgadapterdemo.R;
+import com.chg.chgadapterdemo.demo.Model.Friend;
 
 import java.util.ArrayList;
 import java.util.List;

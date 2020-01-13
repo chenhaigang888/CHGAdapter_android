@@ -1,4 +1,4 @@
-package com.chg.chgadapterdemo.Holder;
+package com.chg.chgadapterdemo.demo.Holder;
 
 import android.view.View;
 
@@ -10,7 +10,7 @@ import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
 import com.chg.CHGAdapter.ModelProtocol;
 import com.chg.CHGAdapter.ViewHolder;
-import com.chg.chgadapterdemo.Model.BannersModel;
+import com.chg.chgadapterdemo.demo.Model.BannersModel;
 import com.chg.chgadapterdemo.R;
 
 

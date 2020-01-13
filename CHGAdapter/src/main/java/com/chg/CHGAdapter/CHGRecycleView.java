@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -46,6 +47,15 @@ public class CHGRecycleView extends RecyclerView {
         setAdapter(new com.chg.CHGAdapter.Adapter(data, getContext()));
     }
 
+//    @Nullable
+//    @Override
+//    public Adapter getAdapter() {
+//        Adapter adapter = super.getAdapter();
+//        if (adapter == null) {
+//            setAdapter(new com.chg.CHGAdapter.Adapter(data, getContext()));
+//        }
+//        return super.getAdapter();
+//    }
 
     @Override
     public void setAdapter(Adapter adapter) {
