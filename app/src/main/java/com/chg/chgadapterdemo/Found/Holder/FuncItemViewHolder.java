@@ -25,7 +25,7 @@ public class FuncItemViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(final ModelProtocol modelProtocol, RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(ModelProtocol modelProtocol, final int position) {
         FuncItem funcItem = (FuncItem) modelProtocol;
 
         icon.setImageResource(funcItem.getIcon());

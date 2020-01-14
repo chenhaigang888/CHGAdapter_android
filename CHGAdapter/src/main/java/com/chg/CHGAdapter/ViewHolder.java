@@ -50,11 +50,18 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * 绑定数据
-     * @param modelProtocol  具体的数据
-     * @param holder
+     *
+     * @param modelProtocol 具体的数据
      * @param position
      */
-    public abstract void onBindViewHolder(ModelProtocol modelProtocol,RecyclerView.ViewHolder holder, int position);
+    public abstract void onBindViewHolder(ModelProtocol modelProtocol, int position);
 
+    /**
+     * 获取用户自定义的对象
+     * @return
+     */
+    public Object getCustomData() {
+        return ((Adapter) ((RecyclerView) getParent()).getAdapter()).getCustomData();
+    }
 
 }

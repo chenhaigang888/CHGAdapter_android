@@ -1,7 +1,6 @@
 package com.chg.CHGAdapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +62,7 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
         Class<RecyclerView.ViewHolder> viewHolder = model.getHolderClass(parent, viewType);
         try {
             Constructor c2 = viewHolder.getDeclaredConstructor(View.class, EventTransmissionListener.class);
-            ViewHolder obj = (ViewHolder) c2.newInstance(view,eventTransmissionListener);
+            ViewHolder obj = (ViewHolder) c2.newInstance(view, eventTransmissionListener);
             obj.setParent(parent);
             return obj;
         } catch (NoSuchMethodException e) {
@@ -80,7 +79,7 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ViewHolder) holder).onBindViewHolder(models.get(position),holder,position);
+        ((ViewHolder) holder).onBindViewHolder(models.get(position), position);
     }
 
     @Override

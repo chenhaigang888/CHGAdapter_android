@@ -3,7 +3,6 @@ package com.chg.CHGAdapter;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;

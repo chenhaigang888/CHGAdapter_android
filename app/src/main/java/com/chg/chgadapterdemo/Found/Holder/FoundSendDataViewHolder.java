@@ -53,9 +53,10 @@ public class FoundSendDataViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(final ModelProtocol modelProtocol, RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(ModelProtocol modelProtocol, final int position) {
         FoundSendData foundSendData = (FoundSendData) modelProtocol;
         content.setText(foundSendData.getContent().getContent());
+
         List sources = foundSendData.getContent().getSource();
         if (sources != null) {
             if (sources.size() == 1) {
@@ -69,7 +70,6 @@ public class FoundSendDataViewHolder extends ViewHolder {
         chgRecycleView.setData(sources);
         chgRecycleView.setEventTransmissionListener(getEventTransmissionListener());
         ((Adapter) chgRecycleView.getAdapter()).setCustomData(foundSendData);
-
         Glide.with(itemView).load(foundSendData.getUser().getAvatar()).apply(getRequestOptions()).into(headImageView);
         nickname.setText(foundSendData.getUser().getFinalShowName());
         remark.setText(foundSendData.getUser().getExts());

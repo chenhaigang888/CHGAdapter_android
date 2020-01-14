@@ -31,7 +31,7 @@ public class FunctionAreaViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(final ModelProtocol modelProtocol, RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(ModelProtocol modelProtocol, final int position) {
         FunctionArea functionArea = (FunctionArea) modelProtocol;
 
         recycleView.setData((List) functionArea.getFuncItems());
