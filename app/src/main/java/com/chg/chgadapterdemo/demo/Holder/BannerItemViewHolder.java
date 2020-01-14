@@ -1,9 +1,11 @@
 package com.chg.chgadapterdemo.demo.Holder;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chg.CHGAdapter.EventTransmissionListener;
 import com.chg.CHGAdapter.ModelProtocol;
@@ -20,8 +22,9 @@ public class BannerItemViewHolder extends ViewHolder {
         imageView = itemView.findViewById(R.id.imageView);
     }
 
+
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol) {
+    public void onBindViewHolder(final ModelProtocol modelProtocol, RecyclerView.ViewHolder holder, final int position) {
 
     }
 }

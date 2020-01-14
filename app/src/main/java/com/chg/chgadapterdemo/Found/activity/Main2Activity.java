@@ -64,10 +64,18 @@ public class Main2Activity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(manager);
         recycleViewData.add(getFunctionArea());
+        recyclerView.setEventTransmissionListener(new EventTransmissionListener() {
+            @Override
+            public Object onEventTransmission(Object target, Object params, int tag, CallBack callBack) {
+                Log.i("chg", "我被点击了");
+
+                Intent intent = new Intent(Main2Activity.this, ShowBigImageViewActivity.class);
+                intent.putExtra("sources", (Serializable) params);
+                startActivity(intent);
+                return null;
+            }
+        });
         postAsynHttp();
-
-
-
     }
 
 
@@ -103,6 +111,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String str = response.body().string();
+                Log.i("chg", "str:" + str);
                 ServerResponse serverResponse = gson.fromJson(str, ServerResponse.class);
                 final List<Found> list = serverResponse.getData();
                 for (Found found : list) {
@@ -128,19 +137,9 @@ public class Main2Activity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (time == 5) {
+                        if (time == 3) {
                             recyclerView.setData(recycleViewData);
-                            recyclerView.setEventTransmissionListener(new EventTransmissionListener() {
-                                @Override
-                                public Object onEventTransmission(Object target, Object params, int tag, CallBack callBack) {
-                                    Log.i("chg","我被点击了");
 
-                                    Intent intent = new Intent(Main2Activity.this,ShowBigImageViewActivity.class);
-                                    intent.putExtra("sources", (Serializable) params);
-                                    startActivity(intent);
-                                    return null;
-                                }
-                            });
                         } else {
                             postAsynHttp();
                         }

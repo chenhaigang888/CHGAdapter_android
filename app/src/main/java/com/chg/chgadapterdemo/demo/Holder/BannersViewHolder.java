@@ -1,10 +1,12 @@
 package com.chg.chgadapterdemo.demo.Holder;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
@@ -28,8 +30,9 @@ public class BannersViewHolder extends ViewHolder {
         recyclerView.setLayoutManager(manager);
     }
 
+
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol) {
+    public void onBindViewHolder(final ModelProtocol modelProtocol, RecyclerView.ViewHolder holder, final int position) {
         BannersModel model = (BannersModel) modelProtocol;
         recyclerView.setData(model.getBannerItemModels());
     }

@@ -3,10 +3,8 @@ package com.chg.CHGAdapter;
 import android.content.Context;
 import android.util.AttributeSet;
 
-
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import java.util.List;
 
@@ -15,23 +13,23 @@ import java.util.List;
  */
 public class CHGRecycleView extends RecyclerView {
 
-
-    private List<ModelProtocol> data;
-
     public CHGRecycleView(Context context) {
         super(context);
+        setAdapter(new com.chg.CHGAdapter.Adapter(null, getContext()));
     }
 
     public CHGRecycleView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setAdapter(new com.chg.CHGAdapter.Adapter(null, getContext()));
     }
 
     public CHGRecycleView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setAdapter(new com.chg.CHGAdapter.Adapter(null, getContext()));
     }
 
     public List<ModelProtocol> getData() {
-        return data;
+        return ((com.chg.CHGAdapter.Adapter) getAdapter()).getModels();
     }
 
     public EventTransmissionListener getEventTransmissionListener() {
@@ -43,19 +41,10 @@ public class CHGRecycleView extends RecyclerView {
     }
 
     public void setData(List<ModelProtocol> data) {
-        this.data = data;
-        setAdapter(new com.chg.CHGAdapter.Adapter(data, getContext()));
+        com.chg.CHGAdapter.Adapter adapter = (com.chg.CHGAdapter.Adapter) getAdapter();
+        adapter.setModels(data);
+        adapter.notifyDataSetChanged();
     }
-
-//    @Nullable
-//    @Override
-//    public Adapter getAdapter() {
-//        Adapter adapter = super.getAdapter();
-//        if (adapter == null) {
-//            setAdapter(new com.chg.CHGAdapter.Adapter(data, getContext()));
-//        }
-//        return super.getAdapter();
-//    }
 
     @Override
     public void setAdapter(Adapter adapter) {

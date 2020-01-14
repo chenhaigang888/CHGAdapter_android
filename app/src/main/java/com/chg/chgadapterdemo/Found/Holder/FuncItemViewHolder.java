@@ -1,8 +1,12 @@
 package com.chg.chgadapterdemo.Found.Holder;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chg.CHGAdapter.EventTransmissionListener;
 import com.chg.CHGAdapter.ModelProtocol;
@@ -14,14 +18,14 @@ public class FuncItemViewHolder extends ViewHolder {
     private ImageView icon;
     private TextView name;
 
-    public FuncItemViewHolder(View itemView, EventTransmissionListener eventTransmissionListener) {
+    public FuncItemViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
         super(itemView, eventTransmissionListener);
         icon = findViewById(R.id.funcIcon);
         name = findViewById(R.id.funcName);
     }
 
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol) {
+    public void onBindViewHolder(final ModelProtocol modelProtocol, RecyclerView.ViewHolder holder, final int position) {
         FuncItem funcItem = (FuncItem) modelProtocol;
 
         icon.setImageResource(funcItem.getIcon());

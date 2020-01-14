@@ -2,12 +2,14 @@ package com.chg.chgadapterdemo.demo.Holder;
 
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
@@ -31,8 +33,9 @@ public class UserViewHolder extends ViewHolder {
         recyclerView = itemView.findViewById(R.id.recyclerView);
     }
 
+
     @Override
-    public void onBindViewHolder(final ModelProtocol modelProtocol) {
+    public void onBindViewHolder(final ModelProtocol modelProtocol, RecyclerView.ViewHolder holder, final int position) {
         User user = (User) modelProtocol;
         username.setText(user.getUsername());
         gender.setText(user.getGender());
@@ -45,9 +48,9 @@ public class UserViewHolder extends ViewHolder {
         });
 
         //好友
-        LinearLayoutManager manager = new LinearLayoutManager(getItemView().getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getItemView().getContext(), DividerItemDecoration.HORIZONTAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
         recyclerView.setLayoutManager(manager);
         recyclerView.setData(user.getFriends());
 

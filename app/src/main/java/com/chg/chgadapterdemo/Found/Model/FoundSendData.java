@@ -16,7 +16,7 @@ public class FoundSendData implements ModelProtocol {
     private Boolean hasCollect;
     private String source;
     private FoundUser user;
-    private List<User> likes;
+    private List<FoundUser> likes;
     private Integer coins;
     private Integer integral;
     private FoundGroup group;
@@ -71,11 +71,11 @@ public class FoundSendData implements ModelProtocol {
         this.user = user;
     }
 
-    public List<User> getLikes() {
+    public List<FoundUser> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<User> likes) {
+    public void setLikes(List<FoundUser> likes) {
         this.likes = likes;
     }
 

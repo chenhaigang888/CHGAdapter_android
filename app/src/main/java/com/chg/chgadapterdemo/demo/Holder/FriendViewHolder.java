@@ -2,10 +2,12 @@ package com.chg.chgadapterdemo.demo.Holder;
 
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chg.CHGAdapter.EventTransmissionListener;
 import com.chg.CHGAdapter.ModelProtocol;
@@ -24,12 +26,10 @@ public class FriendViewHolder extends ViewHolder {
         icon = itemView.findViewById(R.id.icon);
         username = itemView.findViewById(R.id.username);
         gender = itemView.findViewById(R.id.gender);
-
-
     }
 
     @Override
-    public void onBindViewHolder(final ModelProtocol modelProtocol) {
+    public void onBindViewHolder(final ModelProtocol modelProtocol, RecyclerView.ViewHolder holder, final int position) {
         Friend friend = (Friend) modelProtocol;
         username.setText(friend.getUsername());
         gender.setText(friend.getGender());

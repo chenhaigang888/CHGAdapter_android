@@ -1,11 +1,16 @@
 package com.chg.chgadapterdemo.Found.Holder;
 
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -16,6 +21,7 @@ import com.chg.CHGAdapter.EventTransmissionListener;
 import com.chg.CHGAdapter.ModelProtocol;
 import com.chg.CHGAdapter.ViewHolder;
 import com.chg.chgadapterdemo.Found.Model.FoundSendData;
+import com.chg.chgadapterdemo.Found.Model.FoundUser;
 import com.chg.chgadapterdemo.R;
 
 import java.util.List;
@@ -29,7 +35,11 @@ public class FoundSendDataViewHolder extends ViewHolder {
     private TextView remark;
     private TextView browses;
 
-    public FoundSendDataViewHolder(View itemView, EventTransmissionListener eventTransmissionListener) {
+    private ImageView imageView1;
+    private ImageView imageView2;
+    private ImageView imageView3;
+
+    public FoundSendDataViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
         super(itemView, eventTransmissionListener);
         content = findViewById(R.id.content);
         chgRecycleView = findViewById(R.id.chgRecycleView);
@@ -37,10 +47,13 @@ public class FoundSendDataViewHolder extends ViewHolder {
         nickname = findViewById(R.id.nickname);
         remark = findViewById(R.id.remark);
         browses = findViewById(R.id.browses);
+        imageView1 = findViewById(R.id.imageView1);
+        imageView2 = findViewById(R.id.imageView2);
+        imageView3 = findViewById(R.id.imageView3);
     }
 
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol) {
+    public void onBindViewHolder(final ModelProtocol modelProtocol, RecyclerView.ViewHolder holder, final int position) {
         FoundSendData foundSendData = (FoundSendData) modelProtocol;
         content.setText(foundSendData.getContent().getContent());
         List sources = foundSendData.getContent().getSource();
@@ -57,13 +70,88 @@ public class FoundSendDataViewHolder extends ViewHolder {
         chgRecycleView.setEventTransmissionListener(getEventTransmissionListener());
         ((Adapter) chgRecycleView.getAdapter()).setCustomData(foundSendData);
 
-        RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .skipMemoryCache(false);//不做内存缓存
-
-        Glide.with(getItemView()).load(foundSendData.getUser().getAvatar()).apply(mRequestOptions).into(headImageView);
+        Glide.with(itemView).load(foundSendData.getUser().getAvatar()).apply(getRequestOptions()).into(headImageView);
         nickname.setText(foundSendData.getUser().getFinalShowName());
         remark.setText(foundSendData.getUser().getExts());
         browses.setText(foundSendData.getContent().getBrowses() + "人看过");
+        setLikesView(foundSendData);
+    }
+
+
+    public RequestOptions getRequestOptions() {
+        return RequestOptions.circleCropTransform()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(false);//不做内存缓存
+    }
+
+    public void setLikesView(FoundSendData foundSendData) {
+        List likes = foundSendData.getLikes();
+
+        imageView1.setVisibility(View.GONE);
+        imageView2.setVisibility(View.GONE);
+        imageView3.setVisibility(View.GONE);
+        if (likes != null) {
+            if (likes.size() == 1) {
+                imageView1.setVisibility(View.GONE);
+                imageView2.setVisibility(View.GONE);
+                imageView3.setVisibility(View.VISIBLE);
+
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView3.getLayoutParams();
+                layoutParams.setMargins(0, 0, 0, 0);//4个参数按顺序分别是左上右下
+                imageView3.setLayoutParams(layoutParams);
+
+                FoundUser user = (FoundUser) likes.get(0);
+                Glide.with(itemView).load(getUrl(user.getAvatar())).apply(getRequestOptions()).into(imageView3);
+            } else if (likes.size() == 2) {
+                imageView1.setVisibility(View.GONE);
+                imageView2.setVisibility(View.VISIBLE);
+                imageView3.setVisibility(View.VISIBLE);
+
+                LinearLayout.LayoutParams layoutParams2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
+                layoutParams2.setMargins(dp2px(0), 0, 0, 0);//4个参数按顺序分别是左上右下
+                imageView2.setLayoutParams(layoutParams2);
+
+                LinearLayout.LayoutParams layoutParams3 = (LinearLayout.LayoutParams) imageView3.getLayoutParams();
+                layoutParams3.setMargins(dp2px(-10), 0, 0, 0);//4个参数按顺序分别是左上右下
+                imageView3.setLayoutParams(layoutParams3);
+
+                FoundUser user1 = (FoundUser) likes.get(0);
+                FoundUser user2 = (FoundUser) likes.get(1);
+                Glide.with(itemView).load(getUrl(user1.getAvatar())).apply(getRequestOptions()).into(imageView3);
+                Glide.with(itemView).load(getUrl(user2.getAvatar())).apply(getRequestOptions()).into(imageView2);
+            } else if (likes.size() >= 3) {
+                imageView1.setVisibility(View.VISIBLE);
+                imageView2.setVisibility(View.VISIBLE);
+                imageView3.setVisibility(View.VISIBLE);
+
+                LinearLayout.LayoutParams layoutParams1 = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
+                layoutParams1.setMargins(0, 0, 0, 0);//4个参数按顺序分别是左上右下
+                imageView1.setLayoutParams(layoutParams1);
+
+                LinearLayout.LayoutParams layoutParams2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
+                layoutParams2.setMargins(dp2px(-10), 0, 0, 0);//4个参数按顺序分别是左上右下
+                imageView2.setLayoutParams(layoutParams2);
+
+                LinearLayout.LayoutParams layoutParams3 = (LinearLayout.LayoutParams) imageView3.getLayoutParams();
+                layoutParams3.setMargins(dp2px(-10), 0, 0, 0);//4个参数按顺序分别是左上右下
+                imageView3.setLayoutParams(layoutParams3);
+
+                FoundUser user1 = (FoundUser) likes.get(0);
+                FoundUser user2 = (FoundUser) likes.get(1);
+                FoundUser user3 = (FoundUser) likes.get(2);
+                Glide.with(itemView).load(getUrl(user1.getAvatar())).apply(getRequestOptions()).into(imageView3);
+                Glide.with(itemView).load(getUrl(user2.getAvatar())).apply(getRequestOptions()).into(imageView2);
+                Glide.with(itemView).load(getUrl(user3.getAvatar())).apply(getRequestOptions()).into(imageView1);
+            }
+        }
+    }
+
+
+    public String getUrl(String url) {
+        return url + "?x-oss-process=image/resize,w_" + 50 + "/quality,q_50";
+    }
+
+    public int dp2px(float dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getContext().getResources().getDisplayMetrics());
     }
 }

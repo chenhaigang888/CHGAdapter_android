@@ -1,8 +1,11 @@
 package com.chg.chgadapterdemo.Found.Holder;
 
 import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
@@ -16,7 +19,8 @@ import java.util.List;
 public class FunctionAreaViewHolder extends ViewHolder {
 
     private CHGRecycleView recycleView;
-    public FunctionAreaViewHolder(View itemView, EventTransmissionListener eventTransmissionListener) {
+
+    public FunctionAreaViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
         super(itemView, eventTransmissionListener);
         recycleView = findViewById(R.id.funcRecycleView);
 
@@ -27,7 +31,7 @@ public class FunctionAreaViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol) {
+    public void onBindViewHolder(final ModelProtocol modelProtocol, RecyclerView.ViewHolder holder, final int position) {
         FunctionArea functionArea = (FunctionArea) modelProtocol;
 
         recycleView.setData((List) functionArea.getFuncItems());

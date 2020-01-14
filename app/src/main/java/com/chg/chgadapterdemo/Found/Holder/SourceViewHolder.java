@@ -2,9 +2,11 @@ package com.chg.chgadapterdemo.Found.Holder;
 
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,21 +18,22 @@ import com.chg.chgadapterdemo.Found.Model.FoundSendData;
 import com.chg.chgadapterdemo.Found.Model.Source;
 import com.chg.chgadapterdemo.R;
 
+import java.util.HashMap;
+
 public class SourceViewHolder extends ViewHolder {
 
     private ImageView imageView;
 
-    public SourceViewHolder(View itemView, EventTransmissionListener eventTransmissionListener) {
+    public SourceViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
         super(itemView, eventTransmissionListener);
         imageView = itemView.findViewById(R.id.imageView);
-
     }
 
     @Override
-    public void onBindViewHolder(final ModelProtocol modelProtocol) {
+    public void onBindViewHolder(final ModelProtocol modelProtocol, RecyclerView.ViewHolder holder, final int position) {
         Source source = (Source) modelProtocol;
-        int viewWidth = getItemView().getContext().getResources().getDisplayMetrics().widthPixels;
-        int viewHeight = getItemView().getContext().getResources().getDisplayMetrics().heightPixels;
+        int viewWidth = getContext().getResources().getDisplayMetrics().widthPixels;
+        int viewHeight = getContext().getResources().getDisplayMetrics().heightPixels;
 
         RecyclerView recyclerView = (RecyclerView) getParent();
         final Adapter adapter = (Adapter) recyclerView.getAdapter();
@@ -58,7 +61,7 @@ public class SourceViewHolder extends ViewHolder {
                 }
             }
         } else {
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(viewWidth, viewWidth));
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(viewWidth, viewHeight));
             imageWidth = viewWidth;
         }
 
@@ -66,21 +69,23 @@ public class SourceViewHolder extends ViewHolder {
         imageWidth = imageWidth > 900 ? 900 : imageWidth;
         String url = source.getUrl() + "?x-oss-process=image/resize,w_" + imageWidth + "/quality,q_50";
         Log.i("图片", url);
-        Glide.with(getItemView()).load(url).into(imageView);
+        Glide.with(itemView).load(url).into(imageView);
 
-        getItemView().setOnClickListener(new View.OnClickListener() {
+
+        itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (adapter.getCustomData() != null) {
                     final FoundSendData foundSendData = (FoundSendData) adapter.getCustomData();
-                    getEventTransmissionListener().onEventTransmission(this, foundSendData.getContent().getSource(), 0, null);
+                    HashMap map = new HashMap();
+                    map.put("position", position);
+                    map.put("sources", foundSendData.getContent().getSource());
+                    getEventTransmissionListener().onEventTransmission(this, map, 0, null);
                 } else {
                     getEventTransmissionListener().onEventTransmission(this, modelProtocol, 0, null);
                 }
-
             }
         });
-
     }
 
 

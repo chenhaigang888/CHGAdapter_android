@@ -22,6 +22,14 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
     private EventTransmissionListener eventTransmissionListener;
     private Object customData;
 
+    public List<MP> getModels() {
+        return models;
+    }
+
+    public void setModels(List<MP> models) {
+        this.models = models;
+    }
+
     public Object getCustomData() {
         return customData;
     }
@@ -52,10 +60,10 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ModelProtocol model = models.get(viewType);
         View view = LayoutInflater.from(context).inflate(model.getResource(parent, viewType), parent, false);
-        Class<RecyclerView.ViewHolder> viewHolder = model.getHolderClass(parent,viewType);
+        Class<RecyclerView.ViewHolder> viewHolder = model.getHolderClass(parent, viewType);
         try {
             Constructor c2 = viewHolder.getDeclaredConstructor(View.class, EventTransmissionListener.class);
-            ViewHolder obj = (ViewHolder) c2.newInstance(view, eventTransmissionListener);
+            ViewHolder obj = (ViewHolder) c2.newInstance(view,eventTransmissionListener);
             obj.setParent(parent);
             return obj;
         } catch (NoSuchMethodException e) {
@@ -72,7 +80,7 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ViewHolder) holder).onBindViewHolder(models.get(position));
+        ((ViewHolder) holder).onBindViewHolder(models.get(position),holder,position);
     }
 
     @Override

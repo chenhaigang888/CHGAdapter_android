@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
+import com.chg.CHGAdapter.ModelProtocol;
 import com.chg.chgadapterdemo.R;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ShowBigImageViewActivity extends AppCompatActivity {
@@ -26,8 +28,9 @@ public class ShowBigImageViewActivity extends AppCompatActivity {
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(manager);
 
-        List sources = (List) getIntent().getExtras().get("sources");
-        recyclerView.setData(sources);
+        HashMap map = (HashMap) getIntent().getExtras().get("sources");
+        recyclerView.setData((List<ModelProtocol>) map.get("sources"));
+        recyclerView.scrollToPosition((Integer) map.get("position"));
         recyclerView.setEventTransmissionListener(new EventTransmissionListener() {
             @Override
             public Object onEventTransmission(Object target, Object params, int tag, CallBack callBack) {

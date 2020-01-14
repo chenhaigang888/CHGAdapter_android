@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.IdRes;
-import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,12 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public abstract class ViewHolder extends RecyclerView.ViewHolder {
 
     private EventTransmissionListener eventTransmissionListener;
-//    private View itemView;
     private ViewGroup parent;
-    private int layoutResID;
 
-    public Context getContext() {
-        return itemView.getContext();
+    public ViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
+        super(itemView);
+        this.eventTransmissionListener = eventTransmissionListener;
     }
 
     public ViewGroup getParent() {
@@ -31,6 +30,11 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
         this.parent = parent;
     }
 
+    public Context getContext() {
+        return itemView.getContext();
+    }
+
+
     public EventTransmissionListener getEventTransmissionListener() {
         return eventTransmissionListener;
     }
@@ -39,36 +43,18 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
         this.eventTransmissionListener = eventTransmissionListener;
     }
 
-    public View getItemView() {
-        return itemView;
-    }
-
     @Nullable
     public final <T extends View> T findViewById(@IdRes int id) {
         return itemView.findViewById(id);
     }
 
-    public ViewHolder(View itemView, EventTransmissionListener eventTransmissionListener) {
-        super(itemView);
-
-        this.eventTransmissionListener = eventTransmissionListener;
-
-    }
-
-
-
-    public void setContentView(@LayoutRes int layoutResID) {
-        this.layoutResID = layoutResID;
-    }
-
-    public int getLayoutResID() {
-        return layoutResID;
-    }
-
     /**
      * 绑定数据
-     *
-     * @param modelProtocol model
+     * @param modelProtocol  具体的数据
+     * @param holder
+     * @param position
      */
-    public abstract void onBindViewHolder(ModelProtocol modelProtocol);
+    public abstract void onBindViewHolder(ModelProtocol modelProtocol,RecyclerView.ViewHolder holder, int position);
+
+
 }
