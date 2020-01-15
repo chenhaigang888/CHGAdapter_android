@@ -8,8 +8,17 @@
     tools:context=".Found.activity.Main2Activity"
     tools:showIn="@layout/activity_main2">
 
-    <com.chg.CHGAdapter.CHGRecycleView
-        android:id="@+id/recycleView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <com.chg.CHGAdapter.CHGRecycleView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

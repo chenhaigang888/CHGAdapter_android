@@ -25,7 +25,7 @@ public class FuncItemViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol, final int position) {
+    public void onBindViewHolder(ModelProtocol modelProtocol) {
         FuncItem funcItem = (FuncItem) modelProtocol;
 
         icon.setImageResource(funcItem.getIcon());

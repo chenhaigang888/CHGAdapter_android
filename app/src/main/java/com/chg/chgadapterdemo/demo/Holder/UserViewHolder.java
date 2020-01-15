@@ -35,7 +35,7 @@ public class UserViewHolder extends ViewHolder {
 
 
     @Override
-    public void onBindViewHolder(final ModelProtocol modelProtocol, final int position) {
+    public void onBindViewHolder(final ModelProtocol modelProtocol) {
         User user = (User) modelProtocol;
         username.setText(user.getUsername());
         gender.setText(user.getGender());

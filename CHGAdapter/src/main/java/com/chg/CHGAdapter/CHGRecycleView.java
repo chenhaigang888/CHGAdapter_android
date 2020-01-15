@@ -12,6 +12,10 @@ import java.util.List;
  */
 public class CHGRecycleView extends RecyclerView {
 
+    public void setSlideMomentumListener(com.chg.CHGAdapter.Adapter.SlideMomentumListener slideMomentumListener) {
+        ((com.chg.CHGAdapter.Adapter)getAdapter()).setSlideMomentumListener(slideMomentumListener);
+    }
+
     public CHGRecycleView(Context context) {
         super(context);
         setAdapter(new com.chg.CHGAdapter.Adapter(null, getContext()));

@@ -31,7 +31,7 @@ public class SearchItemViewHolder extends ViewHolder {
 
 
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol, final int position) {
+    public void onBindViewHolder(ModelProtocol modelProtocol) {
         SearchItem searchItem = (SearchItem) modelProtocol;
         recyclerView.setData(searchItem.getLits());
     }

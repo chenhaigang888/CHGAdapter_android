@@ -29,7 +29,7 @@ public class FriendViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(final ModelProtocol modelProtocol, final int position) {
+    public void onBindViewHolder(final ModelProtocol modelProtocol) {
         Friend friend = (Friend) modelProtocol;
         username.setText(friend.getUsername());
         gender.setText(friend.getGender());

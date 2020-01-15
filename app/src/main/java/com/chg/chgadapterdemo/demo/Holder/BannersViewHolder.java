@@ -32,7 +32,7 @@ public class BannersViewHolder extends ViewHolder {
 
 
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol, final int position) {
+    public void onBindViewHolder(ModelProtocol modelProtocol) {
         BannersModel model = (BannersModel) modelProtocol;
         recyclerView.setData(model.getBannerItemModels());
     }

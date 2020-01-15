@@ -3,7 +3,18 @@ package com.chg.chgadapterdemo.Found.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.chg.CHGAdapter.Adapter;
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
 import com.chg.chgadapterdemo.Found.Model.Found;
@@ -18,16 +29,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.util.Log;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -43,43 +48,90 @@ import okhttp3.Response;
 public class Main2Activity extends AppCompatActivity {
 
     private CHGRecycleView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private List recycleViewData = new ArrayList();
 
     private FunctionArea functionArea;
     private int time = 0;
+    private Boolean isPullRefresh;
+    private Boolean isLoading;//是否正在加载
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        swipeRefreshLayout = findViewById(R.id.refresh);
         recyclerView = findViewById(R.id.recycleView);
 
+        configEventTransmissionListener();
+        recycleViewData.add(getFunctionArea());
+        configRefreshLayout();
+
+        swipeRefreshLayout.setRefreshing(true);
+        isPullRefresh = true;
+        postAsynHttp();
+    }
+
+    public void configEventTransmissionListener() {
         LinearLayoutManager manager = new LinearLayoutManager(Main2Activity.this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
 
         recyclerView.setLayoutManager(manager);
-        recycleViewData.add(getFunctionArea());
         recyclerView.setEventTransmissionListener(new EventTransmissionListener() {
             @Override
             public Object onEventTransmission(Object target, Object params, int tag, CallBack callBack) {
-                Log.i("chg", "我被点击了");
+                if (target instanceof Adapter) {
 
-                Intent intent = new Intent(Main2Activity.this, ShowBigImageViewActivity.class);
-                intent.putExtra("sources", (Serializable) params);
-                startActivity(intent);
+                } else {
+                    Intent intent = new Intent(Main2Activity.this, ShowBigImageViewActivity.class);
+                    intent.putExtra("sources", (Serializable) params);
+                    startActivity(intent);
+                }
                 return null;
             }
         });
-        postAsynHttp();
+
+        recyclerView.setSlideMomentumListener(new Adapter.SlideMomentumListener() {
+            @Override
+            public int onRemainingAmount() {
+                return 30;
+            }
+
+            @Override
+            public void onArriveRemainingAmount() {
+                //加载更多数据
+                Log.i("chg","加载更多数据😄");
+                isPullRefresh = false;
+                if (!isLoading) {
+                    postAsynHttp();
+                }
+            }
+        });
+    }
+
+    public void configRefreshLayout() {
+        //下拉刷新的圆圈是否显示
+        swipeRefreshLayout.setRefreshing(false);
+        //设置下拉时圆圈的颜色（可以由多种颜色拼成）
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light,
+                android.R.color.holo_orange_light);
+        //设置下拉时圆圈的背景颜色（这里设置成白色）
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(android.R.color.white);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                isPullRefresh = true;
+                postAsynHttp();
+            }
+        });
     }
 
 
     private void postAsynHttp() {
+        isLoading = true;
         time += 1;
         OkHttpClient mOkHttpClient = new OkHttpClient();
         HashMap params = new HashMap();
@@ -126,9 +178,12 @@ public class Main2Activity extends AppCompatActivity {
 
                         } else {//发布的内容
                             ArrayList<FoundSendData> foundSendData = parserJsonArray(gson.toJson(feedExts));
-                            recycleViewData.add(foundSendData.get(0));
+                            if (isPullRefresh) {
+                                recycleViewData.add(1,foundSendData.get(0));
+                            } else {
+                                recycleViewData.add(foundSendData.get(0));
+                            }
                         }
-
                     } else if (type.equals("2")) {//好友推荐
 
                     }
@@ -137,13 +192,9 @@ public class Main2Activity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (time == 3) {
-                            recyclerView.setData(recycleViewData);
-
-                        } else {
-                            postAsynHttp();
-                        }
-
+                        isLoading = false;
+                        swipeRefreshLayout.setRefreshing(false);
+                        recyclerView.setData(recycleViewData);
                     }
                 });
             }

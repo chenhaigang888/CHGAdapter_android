@@ -9,7 +9,7 @@ import com.chg.chgadapterdemo.R;
 import java.io.Serializable;
 
 public class Source implements ModelProtocol , Serializable {
-    private Integer sourceType;
+    private int sourceType;
     private String url;
     private float height;
     private float width;
@@ -17,11 +17,11 @@ public class Source implements ModelProtocol , Serializable {
     private Float duration;
     private Boolean isLongImage;
 
-    public Integer getSourceType() {
+    public int getSourceType() {
         return sourceType;
     }
 
-    public void setSourceType(Integer sourceType) {
+    public void setSourceType(int sourceType) {
         this.sourceType = sourceType;
     }
 

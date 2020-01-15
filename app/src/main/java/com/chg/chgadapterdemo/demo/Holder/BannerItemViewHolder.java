@@ -24,7 +24,7 @@ public class BannerItemViewHolder extends ViewHolder {
 
 
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol, final int position) {
+    public void onBindViewHolder(ModelProtocol modelProtocol) {
 
     }
 }

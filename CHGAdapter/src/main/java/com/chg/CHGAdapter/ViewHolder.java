@@ -16,24 +16,26 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
 
     private EventTransmissionListener eventTransmissionListener;
     private ViewGroup parent;
+    private ModelProtocol modelProtocol;
+//    private int itemPosition;
 
     public ViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
         super(itemView);
         this.eventTransmissionListener = eventTransmissionListener;
     }
 
-    public ViewGroup getParent() {
-        return parent;
-    }
-
-    public void setParent(ViewGroup parent) {
-        this.parent = parent;
-    }
 
     public Context getContext() {
         return itemView.getContext();
     }
 
+    public ModelProtocol getModelProtocol() {
+        return modelProtocol;
+    }
+
+    public void setModelProtocol(ModelProtocol modelProtocol) {
+        this.modelProtocol = modelProtocol;
+    }
 
     public EventTransmissionListener getEventTransmissionListener() {
         return eventTransmissionListener;
@@ -48,20 +50,34 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
         return itemView.findViewById(id);
     }
 
+
+    public ViewGroup getParent() {
+        return parent;
+    }
+
+    public void setParent(ViewGroup parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * 获取用户自定义的对象
+     *
+     * @return
+     */
+    public Object getCustomData() {
+        return getAdapter().getCustomData();
+    }
+
+    public Adapter getAdapter() {
+        return (Adapter) ((RecyclerView) getParent()).getAdapter();
+    }
+
     /**
      * 绑定数据
      *
      * @param modelProtocol 具体的数据
-     * @param position
      */
-    public abstract void onBindViewHolder(ModelProtocol modelProtocol, int position);
-
-    /**
-     * 获取用户自定义的对象
-     * @return
-     */
-    public Object getCustomData() {
-        return ((Adapter) ((RecyclerView) getParent()).getAdapter()).getCustomData();
+    public void onBindViewHolder(ModelProtocol modelProtocol) {
+        this.modelProtocol = modelProtocol;
     }
-
 }
