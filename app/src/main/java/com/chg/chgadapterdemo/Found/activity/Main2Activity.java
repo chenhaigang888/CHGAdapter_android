@@ -96,15 +96,15 @@ public class Main2Activity extends AppCompatActivity {
         recyclerView.setSlideMomentumListener(new Adapter.SlideMomentumListener() {
             @Override
             public int onRemainingAmount() {
-                return 30;
+                return 10;
             }
 
             @Override
             public void onArriveRemainingAmount() {
                 //加载更多数据
-                Log.i("chg","加载更多数据😄");
                 isPullRefresh = false;
                 if (!isLoading) {
+                    Log.i("chg","加载更多数据😄");
                     postAsynHttp();
                 }
             }
@@ -163,7 +163,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String str = response.body().string();
-                Log.i("chg", "str:" + str);
+//                Log.i("chg", "str:" + str);
                 ServerResponse serverResponse = gson.fromJson(str, ServerResponse.class);
                 final List<Found> list = serverResponse.getData();
                 for (Found found : list) {

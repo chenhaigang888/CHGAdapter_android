@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.chg.CHGAdapter.EventTransmissionListener;
@@ -89,15 +90,15 @@ public class SourceViewHolder extends ViewHolder {
             imageWidth = viewWidth;
         }
 
-        imageWidth = imageWidth > 500 ? 500 : imageWidth;
-        return imageWidth;
+//        imageWidth = imageWidth > 500 ? 500 : imageWidth;
+        return (int) (imageWidth * 0.5);
     }
 
     @Override
     public void onBindViewHolder(final ModelProtocol modelProtocol) {
         String url = getUrl(modelProtocol, getPicWidth(modelProtocol));
         Log.i("chg", "图片链接：" + url);
-        Glide.with(itemView).load(url).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
+        Glide.with(itemView).load(url).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.ALL).priority(Priority.HIGH).into(imageView);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
