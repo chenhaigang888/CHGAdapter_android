@@ -4,14 +4,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chg.CHGAdapter.Adapter;
@@ -32,7 +28,6 @@ import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -74,6 +69,9 @@ public class Main2Activity extends AppCompatActivity {
         postAsynHttp();
     }
 
+    /**
+     * 配置RecycleView
+     */
     public void configEventTransmissionListener() {
         LinearLayoutManager manager = new LinearLayoutManager(Main2Activity.this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -82,13 +80,9 @@ public class Main2Activity extends AppCompatActivity {
         recyclerView.setEventTransmissionListener(new EventTransmissionListener() {
             @Override
             public Object onEventTransmission(Object target, Object params, int tag, CallBack callBack) {
-                if (target instanceof Adapter) {
-
-                } else {
-                    Intent intent = new Intent(Main2Activity.this, ShowBigImageViewActivity.class);
-                    intent.putExtra("sources", (Serializable) params);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(Main2Activity.this, ShowBigImageViewActivity.class);
+                intent.putExtra("sources", (Serializable) params);
+                startActivity(intent);
                 return null;
             }
         });

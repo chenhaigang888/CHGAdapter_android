@@ -83,7 +83,6 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.i("chg","获取不同类型的view:"+viewType);
         ModelProtocol model = models.get(viewType);
         View view = LayoutInflater.from(context).inflate(model.getResource(parent, viewType), parent, false);
         Class<RecyclerView.ViewHolder> viewHolder = model.getHolderClass(parent, viewType);
@@ -106,7 +105,6 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.i("chg","当前显示的position:"+position);
         if (getSlideMomentumListener() != null && getItemCount() - position < getSlideMomentumListener().onRemainingAmount()) {
             getSlideMomentumListener().onArriveRemainingAmount();
         }

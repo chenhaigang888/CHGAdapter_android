@@ -1,5 +1,6 @@
 package com.chg.chgadapterdemo.Found.Holder;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +11,6 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.chg.CHGAdapter.EventTransmissionListener;
 import com.chg.CHGAdapter.ModelProtocol;
 import com.chg.CHGAdapter.ViewHolder;
@@ -18,6 +18,7 @@ import com.chg.chgadapterdemo.Found.Model.FoundSendData;
 import com.chg.chgadapterdemo.Found.Model.Source;
 import com.chg.chgadapterdemo.R;
 
+import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
 public class SourceViewHolder extends ViewHolder {
@@ -28,7 +29,6 @@ public class SourceViewHolder extends ViewHolder {
         super(itemView, eventTransmissionListener);
         imageView = findViewById(R.id.imageView);
     }
-
 
 
     //获取图片url
@@ -62,7 +62,7 @@ public class SourceViewHolder extends ViewHolder {
         int viewWidth = getContext().getResources().getDisplayMetrics().widthPixels;
         int viewHeight = getContext().getResources().getDisplayMetrics().heightPixels;
         Source source = (Source) modelProtocol;
-        Log.i("chg","source.getHeight():"+source.getHeight()+"   source.getWidth()"+source.getWidth()+ "    url:"+source.getUrl());
+        Log.i("chg", "source.getHeight():" + source.getHeight() + "   source.getWidth()" + source.getWidth() + "    url:" + source.getUrl());
         if (getCustomData() != null) {
             final FoundSendData foundSendData = (FoundSendData) getCustomData();
             if (foundSendData.getContent().getSource() != null && foundSendData.getContent().getSource().size() > 0) {
