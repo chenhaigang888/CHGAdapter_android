@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.chg.CHGAdapter.EventTransmissionListener;
-import com.chg.CHGAdapter.ModelProtocol;
+import com.chg.CHGAdapter.Model;
 import com.chg.CHGAdapter.ViewHolder;
 import com.chg.chgadapterdemo.Found.Model.FuncItem;
 import com.chg.chgadapterdemo.R;
@@ -23,8 +23,9 @@ public class FuncItemViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol) {
-        FuncItem funcItem = (FuncItem) modelProtocol;
+    public void onBindViewHolder(Model model) {
+        super.onBindViewHolder(model);
+        FuncItem funcItem = (FuncItem) model;
 
         icon.setImageResource(funcItem.getIcon());
         name.setText(funcItem.getName());

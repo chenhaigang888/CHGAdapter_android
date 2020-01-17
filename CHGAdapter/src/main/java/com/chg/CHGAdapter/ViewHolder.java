@@ -16,7 +16,7 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
 
     private EventTransmissionListener eventTransmissionListener;
     private ViewGroup parent;
-    private ModelProtocol modelProtocol;
+    private Model model;
 //    private int itemPosition;
 
     public ViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
@@ -29,12 +29,12 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
         return itemView.getContext();
     }
 
-    public ModelProtocol getModelProtocol() {
-        return modelProtocol;
+    public Model getModel() {
+        return model;
     }
 
-    public void setModelProtocol(ModelProtocol modelProtocol) {
-        this.modelProtocol = modelProtocol;
+    public void setModel(Model model) {
+        this.model = model;
     }
 
     public EventTransmissionListener getEventTransmissionListener() {
@@ -75,9 +75,31 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
     /**
      * 绑定数据
      *
-     * @param modelProtocol 具体的数据
+     * @param model 具体的数据
      */
-    public void onBindViewHolder(ModelProtocol modelProtocol) {
-        this.modelProtocol = modelProtocol;
+    public void onBindViewHolder(Model model) {
+        this.model = model;
+    }
+
+    /**
+     * 将要显示
+     */
+    public void onViewAttachedToWindow() {
+
+    }
+
+    /**
+     * 不在显示
+     */
+    public void onViewDetachedFromWindow() {
+
+    }
+
+
+    /**
+     * 即将销毁
+     */
+    public void onViewRecycled() {
+
     }
 }

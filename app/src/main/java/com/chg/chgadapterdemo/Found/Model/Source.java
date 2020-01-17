@@ -1,14 +1,12 @@
 package com.chg.chgadapterdemo.Found.Model;
 
-import android.view.ViewGroup;
-
-import com.chg.CHGAdapter.ModelProtocol;
+import com.chg.CHGAdapter.Model;
 import com.chg.chgadapterdemo.Found.Holder.SourceViewHolder;
 import com.chg.chgadapterdemo.R;
 
 import java.io.Serializable;
 
-public class Source implements ModelProtocol , Serializable {
+public class Source implements Model, Serializable {
     private int sourceType;
     private String url;
     private float height;
@@ -74,12 +72,12 @@ public class Source implements ModelProtocol , Serializable {
     }
 
     @Override
-    public int getResource(ViewGroup parent, int position) {
+    public int getResource(int position) {
         return R.layout.source_item;
     }
 
     @Override
-    public Class getHolderClass(ViewGroup parent, int position) {
+    public Class getHolderClass(int position) {
         return SourceViewHolder.class;
     }
 }

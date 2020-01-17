@@ -8,12 +8,12 @@ import com.chg.chgadapterdemo.R;
 
 public class Friend extends User {
     @Override
-    public int getResource(ViewGroup parent, int position) {
+    public int getResource(int position) {
         return R.layout.friend_layout;
     }
 
     @Override
-    public Class getHolderClass(ViewGroup parent, int position) {
+    public Class getHolderClass(int position) {
         return FriendViewHolder.class;
     }
 }

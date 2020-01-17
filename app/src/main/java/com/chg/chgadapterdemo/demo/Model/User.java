@@ -1,26 +1,23 @@
 package com.chg.chgadapterdemo.demo.Model;
 
-import android.view.ViewGroup;
-
-
-import com.chg.CHGAdapter.ModelProtocol;
-import com.chg.chgadapterdemo.demo.Holder.UserViewHolder;
+import com.chg.CHGAdapter.Model;
 import com.chg.chgadapterdemo.R;
+import com.chg.chgadapterdemo.demo.Holder.UserViewHolder;
 
 import java.util.List;
 
-public class User implements ModelProtocol {
+public class User implements Model {
 
     private String icon;
     private String username;
     private String gender;
-    private List<ModelProtocol> friends;
+    private List<Model> friends;
 
-    public List<ModelProtocol> getFriends() {
+    public List<Model> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<ModelProtocol> friends) {
+    public void setFriends(List<Model> friends) {
         this.friends = friends;
     }
 
@@ -49,12 +46,12 @@ public class User implements ModelProtocol {
     }
 
     @Override
-    public int getResource(ViewGroup parent, int position) {
+    public int getResource(int position) {
         return R.layout.user_layout;
     }
 
     @Override
-    public Class getHolderClass(ViewGroup parent, int position) {
+    public Class getHolderClass(int position) {
         return UserViewHolder.class;
     }
 }

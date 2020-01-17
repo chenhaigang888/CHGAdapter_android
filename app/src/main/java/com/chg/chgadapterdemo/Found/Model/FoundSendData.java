@@ -1,15 +1,12 @@
 package com.chg.chgadapterdemo.Found.Model;
 
-import android.view.ViewGroup;
-
-import com.chg.CHGAdapter.ModelProtocol;
+import com.chg.CHGAdapter.Model;
 import com.chg.chgadapterdemo.Found.Holder.FoundSendDataViewHolder;
-import com.chg.chgadapterdemo.demo.Model.User;
 import com.chg.chgadapterdemo.R;
 
 import java.util.List;
 
-public class FoundSendData implements ModelProtocol {
+public class FoundSendData implements Model {
     private FoundContent content;
     private Boolean hasLike;
     private Boolean hasDislike;
@@ -112,12 +109,12 @@ public class FoundSendData implements ModelProtocol {
     }
 
     @Override
-    public int getResource(ViewGroup parent, int position) {
+    public int getResource(int position) {
         return R.layout.found_send_data_item;
     }
 
     @Override
-    public Class getHolderClass(ViewGroup parent, int position) {
+    public Class getHolderClass(int position) {
         return FoundSendDataViewHolder.class;
     }
 

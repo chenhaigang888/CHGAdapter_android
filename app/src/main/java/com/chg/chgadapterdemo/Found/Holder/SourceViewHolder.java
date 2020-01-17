@@ -1,6 +1,7 @@
 package com.chg.chgadapterdemo.Found.Holder;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,16 +10,17 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.chg.CHGAdapter.EventTransmissionListener;
-import com.chg.CHGAdapter.ModelProtocol;
+import com.chg.CHGAdapter.Model;
 import com.chg.CHGAdapter.ViewHolder;
 import com.chg.chgadapterdemo.Found.Model.FoundSendData;
 import com.chg.chgadapterdemo.Found.Model.Source;
 import com.chg.chgadapterdemo.R;
 
-import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
 public class SourceViewHolder extends ViewHolder {
@@ -32,19 +34,19 @@ public class SourceViewHolder extends ViewHolder {
 
 
     //获取图片url
-    public String getUrl(ModelProtocol modelProtocol, int imageWidth) {
+    public String getUrl(Model model, int imageWidth) {
         String url = null;
         if (getCustomData() != null) {
             final FoundSendData foundSendData = (FoundSendData) getCustomData();
             Integer type = foundSendData.getContent().getType();
             if (type == 2) {//图片
-                Source source = (Source) modelProtocol;
+                Source source = (Source) model;
                 url = source.getUrl() + "?x-oss-process=image/resize,w_" + imageWidth + "/quality,q_30";
             } else if (type == 3) {//视频
                 url = foundSendData.getContent().getCover();
             }
         } else {
-            Source source = (Source) modelProtocol;
+            Source source = (Source) model;
             int sourceType = source.getSourceType();
             if (sourceType == 4) {//视频
                 url = source.getUrl();
@@ -57,11 +59,11 @@ public class SourceViewHolder extends ViewHolder {
     }
 
     //获取图片的宽高
-    public int getPicWidth(ModelProtocol modelProtocol) {
+    public int getPicWidth(Model model) {
         int imageWidth = 0;
         int viewWidth = getContext().getResources().getDisplayMetrics().widthPixels;
         int viewHeight = getContext().getResources().getDisplayMetrics().heightPixels;
-        Source source = (Source) modelProtocol;
+        Source source = (Source) model;
         Log.i("chg", "source.getHeight():" + source.getHeight() + "   source.getWidth()" + source.getWidth() + "    url:" + source.getUrl());
         if (getCustomData() != null) {
             final FoundSendData foundSendData = (FoundSendData) getCustomData();
@@ -90,15 +92,16 @@ public class SourceViewHolder extends ViewHolder {
             imageWidth = viewWidth;
         }
 
-//        imageWidth = imageWidth > 500 ? 500 : imageWidth;
-        return (int) (imageWidth * 0.5);
+        imageWidth = imageWidth > 500 ? 500 : imageWidth;
+        return (int) imageWidth;
     }
 
     @Override
-    public void onBindViewHolder(final ModelProtocol modelProtocol) {
-        String url = getUrl(modelProtocol, getPicWidth(modelProtocol));
+    public void onBindViewHolder(final Model model) {
+        String url = getUrl(model, getPicWidth(model));
         Log.i("chg", "图片链接：" + url);
-        Glide.with(itemView).load(url).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.ALL).priority(Priority.HIGH).into(imageView);
+
+        SourceViewHolder.displayImageCenter(imageView, url, getContext(), R.drawable.lei_da, false);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,11 +113,35 @@ public class SourceViewHolder extends ViewHolder {
                     map.put("sources", foundSendData.getContent().getSource());
                     getEventTransmissionListener().onEventTransmission(this, map, 0, null);
                 } else {
-                    getEventTransmissionListener().onEventTransmission(this, modelProtocol, 0, null);
+                    getEventTransmissionListener().onEventTransmission(this, model, 0, null);
                 }
             }
         });
     }
 
 
+    public static void displayImageCenter(final ImageView imageview, String url, Context context, int defultPic, Boolean isCircleCrop) {
+        Glide.with(context).clear(imageview);
+        RequestOptions options = null;
+        if (isCircleCrop) {
+            options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).placeholder(defultPic).error(defultPic).dontAnimate().circleCropTransform();
+        } else {
+            options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).placeholder(defultPic).error(defultPic).dontAnimate();
+        }
+
+        Glide.with(context).load(url).apply(options).into(new SimpleTarget<Drawable>() {
+            @Override
+            public void onResourceReady(Drawable drawable, Transition<? super Drawable> transition) {
+                if (drawable != null) {
+                    imageview.setImageDrawable(drawable);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onViewDetachedFromWindow() {
+        super.onViewDetachedFromWindow();
+        imageView.setImageResource(R.drawable.ic_launcher_background);
+    }
 }

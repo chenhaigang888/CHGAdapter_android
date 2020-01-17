@@ -1,5 +1,6 @@
 package com.chg.chgadapterdemo.Found.Holder;
 
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,13 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.chg.CHGAdapter.Adapter;
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
-import com.chg.CHGAdapter.ModelProtocol;
+import com.chg.CHGAdapter.Model;
 import com.chg.CHGAdapter.ViewHolder;
 import com.chg.chgadapterdemo.Found.Model.FoundSendData;
 import com.chg.chgadapterdemo.Found.Model.FoundUser;
@@ -50,8 +48,9 @@ public class FoundSendDataViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol) {
-        FoundSendData foundSendData = (FoundSendData) modelProtocol;
+    public void onBindViewHolder(Model model) {
+        super.onBindViewHolder(model);
+        FoundSendData foundSendData = (FoundSendData) model;
         content.setText(foundSendData.getContent().getContent());
 
         List sources = foundSendData.getContent().getSource();
@@ -67,16 +66,13 @@ public class FoundSendDataViewHolder extends ViewHolder {
         chgRecycleView.setData(sources);
         chgRecycleView.setEventTransmissionListener(getEventTransmissionListener());
         ((Adapter) chgRecycleView.getAdapter()).setCustomData(foundSendData);
-        Glide.with(itemView).load(getUrl(foundSendData.getUser().getAvatar(),30)).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).apply(getRequestOptions()).into(headImageView);
+
+        SourceViewHolder.displayImageCenter(headImageView, getUrl(foundSendData.getUser().getAvatar(), 24), getContext(), R.drawable.lei_da, true);
+
         nickname.setText(foundSendData.getUser().getFinalShowName());
         remark.setText(foundSendData.getUser().getExts());
         browses.setText(foundSendData.getContent().getBrowses() + "人看过");
         setLikesView(foundSendData);
-    }
-
-
-    public RequestOptions getRequestOptions() {
-        return RequestOptions.circleCropTransform();
     }
 
     public void setLikesView(FoundSendData foundSendData) {
@@ -94,8 +90,8 @@ public class FoundSendDataViewHolder extends ViewHolder {
                 layoutParams.setMargins(0, 0, 0, 0);//4个参数按顺序分别是左上右下
                 imageView3.setLayoutParams(layoutParams);
 
-                FoundUser user = (FoundUser) likes.get(0);
-                Glide.with(itemView).load(getUrl(user.getAvatar(),24)).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).apply(getRequestOptions()).into(imageView3);
+                FoundUser user1 = (FoundUser) likes.get(0);
+                SourceViewHolder.displayImageCenter(imageView3, getUrl(user1.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
             } else if (likes.size() == 2) {
                 imageView1.setVisibility(View.GONE);
                 imageView2.setVisibility(View.VISIBLE);
@@ -111,8 +107,10 @@ public class FoundSendDataViewHolder extends ViewHolder {
 
                 FoundUser user1 = (FoundUser) likes.get(0);
                 FoundUser user2 = (FoundUser) likes.get(1);
-                Glide.with(itemView).load(getUrl(user1.getAvatar(),24)).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).apply(getRequestOptions()).into(imageView3);
-                Glide.with(itemView).load(getUrl(user2.getAvatar(),24)).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).apply(getRequestOptions()).into(imageView2);
+
+                SourceViewHolder.displayImageCenter(imageView3, getUrl(user1.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
+                SourceViewHolder.displayImageCenter(imageView2, getUrl(user2.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
+
             } else if (likes.size() >= 3) {
                 imageView1.setVisibility(View.VISIBLE);
                 imageView2.setVisibility(View.VISIBLE);
@@ -133,15 +131,16 @@ public class FoundSendDataViewHolder extends ViewHolder {
                 FoundUser user1 = (FoundUser) likes.get(0);
                 FoundUser user2 = (FoundUser) likes.get(1);
                 FoundUser user3 = (FoundUser) likes.get(2);
-                Glide.with(itemView).load(getUrl(user1.getAvatar(),24)).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).apply(getRequestOptions()).into(imageView3);
-                Glide.with(itemView).load(getUrl(user2.getAvatar(),24)).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).apply(getRequestOptions()).into(imageView2);
-                Glide.with(itemView).load(getUrl(user3.getAvatar(),24)).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).apply(getRequestOptions()).into(imageView1);
+
+                SourceViewHolder.displayImageCenter(imageView3, getUrl(user3.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
+                SourceViewHolder.displayImageCenter(imageView2, getUrl(user2.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
+                SourceViewHolder.displayImageCenter(imageView1, getUrl(user1.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
             }
         }
     }
 
 
-    public String getUrl(String url,int dp) {
+    public String getUrl(String url, int dp) {
         return url + "?x-oss-process=image/resize,w_" + dp2px(dp) + "/quality,q_50";
     }
 

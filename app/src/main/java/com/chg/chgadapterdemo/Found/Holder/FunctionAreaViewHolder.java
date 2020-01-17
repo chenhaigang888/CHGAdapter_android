@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
-import com.chg.CHGAdapter.ModelProtocol;
+import com.chg.CHGAdapter.Model;
 import com.chg.CHGAdapter.ViewHolder;
 import com.chg.chgadapterdemo.Found.Model.FunctionArea;
 import com.chg.chgadapterdemo.R;
@@ -29,8 +29,9 @@ public class FunctionAreaViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol) {
-        FunctionArea functionArea = (FunctionArea) modelProtocol;
+    public void onBindViewHolder(Model model) {
+        super.onBindViewHolder(model);
+        FunctionArea functionArea = (FunctionArea) model;
 
         recycleView.setData((List) functionArea.getFuncItems());
     }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Constructor;
@@ -13,9 +14,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
- * @param <MP> MP extends ModelProtocol
+ * @param <M> M extends Model
  */
-public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
+public class Adapter<M extends Model> extends RecyclerView.Adapter {
 
     /**
      * 监听滑动的数量
@@ -23,6 +24,7 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
     public interface SlideMomentumListener {
         /**
          * 设置剩余数量没展示的时候发出回调
+         *
          * @return
          */
         public int onRemainingAmount();
@@ -33,11 +35,13 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
         public void onArriveRemainingAmount();
     }
 
-    private List<MP> models;
+    private List<M> models;
     private Context context;
     private EventTransmissionListener eventTransmissionListener;
     private SlideMomentumListener slideMomentumListener;
     private Object customData;
+    //和viewType一一对应
+    private Class<RecyclerView.ViewHolder> viewHolderClass;
 
     public SlideMomentumListener getSlideMomentumListener() {
         return slideMomentumListener;
@@ -47,11 +51,11 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
         this.slideMomentumListener = slideMomentumListener;
     }
 
-    public List<MP> getModels() {
+    public List<M> getModels() {
         return models;
     }
 
-    public void setModels(List<MP> models) {
+    public void setModels(List<M> models) {
         this.models = models;
     }
 
@@ -71,26 +75,25 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
         this.eventTransmissionListener = eventTransmissionListener;
     }
 
-    public Adapter(List<MP> models, Context context) {
+    public Adapter(List<M> models, Context context) {
         this.models = models;
         this.context = context;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return position;
+        viewHolderClass = models.get(position).getHolderClass(position);
+        return models.get(position).getResource(position);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ModelProtocol model = models.get(viewType);
-        View view = LayoutInflater.from(context).inflate(model.getResource(parent, viewType), parent, false);
-        Class<RecyclerView.ViewHolder> viewHolder = model.getHolderClass(parent, viewType);
+        View view = LayoutInflater.from(context).inflate(viewType, parent, false);
         try {
-            Constructor c2 = viewHolder.getDeclaredConstructor(View.class, EventTransmissionListener.class);
-            ViewHolder obj = (ViewHolder) c2.newInstance(view, eventTransmissionListener);
-            obj.setParent(parent);
-            return obj;
+            Constructor c2 = viewHolderClass.getDeclaredConstructor(View.class, EventTransmissionListener.class);
+            ViewHolder viewHolder = (ViewHolder) c2.newInstance(view, eventTransmissionListener);
+            viewHolder.setParent(parent);
+            return viewHolder;
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -109,6 +112,35 @@ public class Adapter<MP extends ModelProtocol> extends RecyclerView.Adapter {
             getSlideMomentumListener().onArriveRemainingAmount();
         }
         ((ViewHolder) holder).onBindViewHolder(models.get(position));
+    }
+
+    /**
+     * （当Item进入这个页面的时候调用）
+     *
+     * @param holder
+     */
+    @Override
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        ((ViewHolder) holder).onViewAttachedToWindow();
+    }
+
+
+    /**
+     * （当Item离开这个页面的时候调用）
+     *
+     * @param holder
+     */
+    @Override
+    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        ((ViewHolder) holder).onViewDetachedFromWindow();
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
+        ((ViewHolder) holder).onViewRecycled();
     }
 
     @Override

@@ -1,32 +1,30 @@
 package com.chg.chgadapterdemo.demo.Model;
 
-import android.view.ViewGroup;
-
-import com.chg.CHGAdapter.ModelProtocol;
-import com.chg.chgadapterdemo.demo.Holder.BannersViewHolder;
+import com.chg.CHGAdapter.Model;
 import com.chg.chgadapterdemo.R;
+import com.chg.chgadapterdemo.demo.Holder.BannersViewHolder;
 
 import java.util.List;
 
-public class BannersModel implements ModelProtocol {
+public class BannersModel implements Model {
 
-    private List<ModelProtocol> bannerItemModels;
+    private List<Model> bannerItemModels;
 
-    public List<ModelProtocol> getBannerItemModels() {
+    public List<Model> getBannerItemModels() {
         return bannerItemModels;
     }
 
-    public void setBannerItemModels(List<ModelProtocol> bannerItemModels) {
+    public void setBannerItemModels(List<Model> bannerItemModels) {
         this.bannerItemModels = bannerItemModels;
     }
 
     @Override
-    public int getResource(ViewGroup parent, int position) {
+    public int getResource(int position) {
         return R.layout.banners;
     }
 
     @Override
-    public Class getHolderClass(ViewGroup parent, int position) {
+    public Class getHolderClass(int position) {
         return BannersViewHolder.class;
     }
 }

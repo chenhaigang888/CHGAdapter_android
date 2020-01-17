@@ -90,7 +90,7 @@ public class Main2Activity extends AppCompatActivity {
         recyclerView.setSlideMomentumListener(new Adapter.SlideMomentumListener() {
             @Override
             public int onRemainingAmount() {
-                return 10;
+                return 30;
             }
 
             @Override

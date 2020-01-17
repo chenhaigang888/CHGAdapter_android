@@ -1,14 +1,12 @@
 package com.chg.chgadapterdemo.demo.Model;
 
-import android.view.ViewGroup;
-
-import com.chg.CHGAdapter.ModelProtocol;
-import com.chg.chgadapterdemo.demo.Holder.SearchItemViewHolder;
+import com.chg.CHGAdapter.Model;
 import com.chg.chgadapterdemo.R;
+import com.chg.chgadapterdemo.demo.Holder.SearchItemViewHolder;
 
 import java.util.List;
 
-public class SearchItem implements ModelProtocol {
+public class SearchItem implements Model {
 
     private int type;
     private List lits;
@@ -35,12 +33,12 @@ public class SearchItem implements ModelProtocol {
     }
 
     @Override
-    public int getResource(ViewGroup parent, int position) {
+    public int getResource(int position) {
         return type == 0 ? R.layout.search_item_layout  : R.layout.search_item_1_layout;
     }
 
     @Override
-    public Class getHolderClass(ViewGroup parent, int position) {
+    public Class getHolderClass(int position) {
         return SearchItemViewHolder.class;
     }
 }

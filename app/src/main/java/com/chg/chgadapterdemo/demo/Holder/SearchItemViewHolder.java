@@ -1,19 +1,17 @@
 package com.chg.chgadapterdemo.demo.Holder;
 
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
-import com.chg.CHGAdapter.ModelProtocol;
+import com.chg.CHGAdapter.Model;
 import com.chg.CHGAdapter.ViewHolder;
-import com.chg.chgadapterdemo.demo.Model.SearchItem;
 import com.chg.chgadapterdemo.R;
+import com.chg.chgadapterdemo.demo.Model.SearchItem;
 
 public class SearchItemViewHolder extends ViewHolder {
     private CHGRecycleView recyclerView;
@@ -31,8 +29,8 @@ public class SearchItemViewHolder extends ViewHolder {
 
 
     @Override
-    public void onBindViewHolder(ModelProtocol modelProtocol) {
-        SearchItem searchItem = (SearchItem) modelProtocol;
+    public void onBindViewHolder(Model model) {
+        SearchItem searchItem = (SearchItem) model;
         recyclerView.setData(searchItem.getLits());
     }
 }

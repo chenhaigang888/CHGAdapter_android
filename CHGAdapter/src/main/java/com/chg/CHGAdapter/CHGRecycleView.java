@@ -31,7 +31,7 @@ public class CHGRecycleView extends RecyclerView {
         setAdapter(new com.chg.CHGAdapter.Adapter(null, getContext()));
     }
 
-    public List<ModelProtocol> getData() {
+    public List<Model> getData() {
         return ((com.chg.CHGAdapter.Adapter) getAdapter()).getModels();
     }
 
@@ -43,7 +43,7 @@ public class CHGRecycleView extends RecyclerView {
         ((com.chg.CHGAdapter.Adapter) getAdapter()).setEventTransmissionListener(eventTransmissionListener);
     }
 
-    public void setData(List<ModelProtocol> data) {
+    public void setData(List<Model> data) {
         com.chg.CHGAdapter.Adapter adapter = (com.chg.CHGAdapter.Adapter) getAdapter();
         adapter.setModels(data);
         adapter.notifyDataSetChanged();

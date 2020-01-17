@@ -2,13 +2,13 @@ package com.chg.chgadapterdemo.Found.Model;
 
 import android.view.ViewGroup;
 
-import com.chg.CHGAdapter.ModelProtocol;
+import com.chg.CHGAdapter.Model;
 import com.chg.chgadapterdemo.Found.Holder.FunctionAreaViewHolder;
 import com.chg.chgadapterdemo.R;
 
 import java.util.List;
 
-public class FunctionArea implements ModelProtocol {
+public class FunctionArea implements Model {
 
     private List<FuncItem> funcItems;
 
@@ -21,12 +21,12 @@ public class FunctionArea implements ModelProtocol {
     }
 
     @Override
-    public int getResource(ViewGroup parent, int position) {
+    public int getResource(int position) {
         return R.layout.function_area;
     }
 
     @Override
-    public Class getHolderClass(ViewGroup parent, int position) {
+    public Class getHolderClass(int position) {
         return FunctionAreaViewHolder.class;
     }
 }

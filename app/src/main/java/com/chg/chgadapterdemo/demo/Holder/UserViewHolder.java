@@ -2,21 +2,19 @@ package com.chg.chgadapterdemo.demo.Holder;
 
 
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
-import com.chg.CHGAdapter.ModelProtocol;
+import com.chg.CHGAdapter.Model;
 import com.chg.CHGAdapter.ViewHolder;
-import com.chg.chgadapterdemo.demo.Model.User;
 import com.chg.chgadapterdemo.R;
+import com.chg.chgadapterdemo.demo.Model.User;
 
 public class UserViewHolder extends ViewHolder {
 
@@ -35,15 +33,16 @@ public class UserViewHolder extends ViewHolder {
 
 
     @Override
-    public void onBindViewHolder(final ModelProtocol modelProtocol) {
-        User user = (User) modelProtocol;
+    public void onBindViewHolder(final Model model) {
+        super.onBindViewHolder(model);
+        User user = (User) model;
         username.setText(user.getUsername());
         gender.setText(user.getGender());
 
         icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getEventTransmissionListener().onEventTransmission(v,modelProtocol,0,null);
+                getEventTransmissionListener().onEventTransmission(v,model,0,null);
             }
         });
 
