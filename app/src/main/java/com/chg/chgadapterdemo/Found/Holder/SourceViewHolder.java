@@ -41,7 +41,7 @@ public class SourceViewHolder extends ViewHolder {
             Integer type = foundSendData.getContent().getType();
             if (type == 2) {//图片
                 Source source = (Source) model;
-                url = source.getUrl() + "?x-oss-process=image/resize,w_" + imageWidth + "/quality,q_30";
+                url = source.getUrl() + "?x-oss-process=image/resize,w_" + imageWidth + "/quality,q_50";
             } else if (type == 3) {//视频
                 url = foundSendData.getContent().getCover();
             }
@@ -51,7 +51,7 @@ public class SourceViewHolder extends ViewHolder {
             if (sourceType == 4) {//视频
                 url = source.getUrl();
             } else {
-                url = source.getUrl() + "?x-oss-process=image/resize,w_" + imageWidth + "/quality,q_30";
+                url = source.getUrl() + "?x-oss-process=image/resize,w_" + imageWidth + "/quality,q_50";
             }
         }
 
@@ -92,7 +92,7 @@ public class SourceViewHolder extends ViewHolder {
             imageWidth = viewWidth;
         }
 
-        imageWidth = imageWidth > 500 ? 500 : imageWidth;
+        imageWidth = imageWidth > 900 ? 900 : imageWidth;
         return (int) imageWidth;
     }
 
@@ -121,7 +121,8 @@ public class SourceViewHolder extends ViewHolder {
 
 
     public static void displayImageCenter(final ImageView imageview, String url, Context context, int defultPic, Boolean isCircleCrop) {
-        Glide.with(context).clear(imageview);
+
+
         RequestOptions options = null;
         if (isCircleCrop) {
             options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).placeholder(defultPic).error(defultPic).dontAnimate().circleCropTransform();
@@ -142,6 +143,8 @@ public class SourceViewHolder extends ViewHolder {
     @Override
     public void onViewDetachedFromWindow() {
         super.onViewDetachedFromWindow();
+        Glide.with(getContext()).clear(imageView);
+
         imageView.setImageResource(R.drawable.ic_launcher_background);
     }
 }

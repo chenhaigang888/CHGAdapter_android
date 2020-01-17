@@ -17,7 +17,6 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
     private EventTransmissionListener eventTransmissionListener;
     private ViewGroup parent;
     private Model model;
-//    private int itemPosition;
 
     public ViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
         super(itemView);
