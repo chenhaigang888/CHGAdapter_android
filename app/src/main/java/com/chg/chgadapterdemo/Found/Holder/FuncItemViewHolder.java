@@ -29,5 +29,12 @@ public class FuncItemViewHolder extends ViewHolder {
 
         icon.setImageResource(funcItem.getIcon());
         name.setText(funcItem.getName());
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getEventTransmissionListener().onEventTransmission(this,getModel(),0,null);
+            }
+        });
     }
 }

@@ -23,7 +23,7 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter {
      */
     public interface SlideMomentumListener {
         /**
-         * 设置剩余数量没展示的时候发出回调
+         * 设置剩余数量没展示的时候发出回调。当剩余的item数量小于设置的数量 onRemainingAmount方法回被回调
          *
          * @return
          */
@@ -124,7 +124,6 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter {
         super.onViewAttachedToWindow(holder);
         ((ViewHolder) holder).onViewAttachedToWindow();
     }
-
 
     /**
      * （当Item离开这个页面的时候调用）

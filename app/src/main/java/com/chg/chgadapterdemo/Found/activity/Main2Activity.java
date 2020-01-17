@@ -13,6 +13,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.chg.CHGAdapter.Adapter;
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
+import com.chg.chgadapterdemo.Found.Holder.FuncItemViewHolder;
+import com.chg.chgadapterdemo.Found.Holder.SourceViewHolder;
 import com.chg.chgadapterdemo.Found.Model.Found;
 import com.chg.chgadapterdemo.Found.Model.FoundSendData;
 import com.chg.chgadapterdemo.Found.Model.FuncItem;
@@ -47,7 +49,7 @@ public class Main2Activity extends AppCompatActivity {
     private List recycleViewData = new ArrayList();
 
     private FunctionArea functionArea;
-    private int time = 0;
+    private int pageIndex = 0;
     private Boolean isPullRefresh;
     private Boolean isLoading;//是否正在加载
 
@@ -80,9 +82,14 @@ public class Main2Activity extends AppCompatActivity {
         recyclerView.setEventTransmissionListener(new EventTransmissionListener() {
             @Override
             public Object onEventTransmission(Object target, Object params, int tag, CallBack callBack) {
-                Intent intent = new Intent(Main2Activity.this, ShowBigImageViewActivity.class);
-                intent.putExtra("sources", (Serializable) params);
-                startActivity(intent);
+                if (target.getClass().getName().replace("$1","").equals(FuncItemViewHolder.class.getName())) {
+                    Intent intent = new Intent(Main2Activity.this, SearchActivity.class);
+                    startActivity(intent);
+                } else if(target.getClass().getName().replace("$1","").equals(SourceViewHolder.class.getName())){
+                    Intent intent = new Intent(Main2Activity.this, ShowBigImageViewActivity.class);
+                    intent.putExtra("sources", (Serializable) params);
+                    startActivity(intent);
+                }
                 return null;
             }
         });
@@ -98,7 +105,6 @@ public class Main2Activity extends AppCompatActivity {
                 //加载更多数据
                 isPullRefresh = false;
                 if (!isLoading) {
-                    Log.i("chg","加载更多数据😄");
                     postAsynHttp();
                 }
             }
@@ -126,13 +132,13 @@ public class Main2Activity extends AppCompatActivity {
 
     private void postAsynHttp() {
         isLoading = true;
-        time += 1;
+        pageIndex += 1;
         OkHttpClient mOkHttpClient = new OkHttpClient();
         HashMap params = new HashMap();
         params.put("appId", "1003604205986484225");
         params.put("lat", "0");
         params.put("lng", "0");
-        params.put("pageIndex", time + "");
+        params.put("pageIndex", pageIndex + "");
         params.put("pageSize", "10");
         params.put("platform", "ios");
         params.put("timestamp", "1578715788332");

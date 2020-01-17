@@ -34,5 +34,6 @@ public class FunctionAreaViewHolder extends ViewHolder {
         FunctionArea functionArea = (FunctionArea) model;
 
         recycleView.setData((List) functionArea.getFuncItems());
+        recycleView.setEventTransmissionListener(getEventTransmissionListener());
     }
 }
