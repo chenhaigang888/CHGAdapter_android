@@ -9,11 +9,21 @@ import java.io.Serializable;
 public class Source implements Model, Serializable {
     private int sourceType;
     private String url;
+    //处理过的url
+    private String handleUrl;
     private float height;
     private float width;
     private String path;
     private Float duration;
     private Boolean isLongImage;
+
+    public String getHandleUrl() {
+        return handleUrl;
+    }
+
+    public void setHandleUrl(String handleUrl) {
+        this.handleUrl = handleUrl;
+    }
 
     public int getSourceType() {
         return sourceType;

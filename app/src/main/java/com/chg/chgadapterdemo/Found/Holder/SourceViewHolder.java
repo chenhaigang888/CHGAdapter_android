@@ -30,8 +30,62 @@ public class SourceViewHolder extends ViewHolder {
     public SourceViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
         super(itemView, eventTransmissionListener);
         imageView = findViewById(R.id.imageView);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getCustomData() != null) {
+                    final FoundSendData foundSendData = (FoundSendData) getCustomData();
+                    HashMap map = new HashMap();
+                    map.put("position", getAdapterPosition());
+                    map.put("sources", foundSendData.getContent().getSource());
+                    getEventTransmissionListener().onEventTransmission(this, map, 0, null);
+                } else {
+                    getEventTransmissionListener().onEventTransmission(this, getModel(), 0, null);
+                }
+            }
+        });
     }
 
+
+    @Override
+    public void onBindViewHolder(final Model model) {
+        super.onBindViewHolder(model);
+        Source source = (Source) model;
+        source.setHandleUrl(getUrl(getModel(), getPicWidth(getModel())));
+    }
+
+    @Override
+    public void onViewAttachedToWindow() {
+        super.onViewAttachedToWindow();
+        Source source = (Source) getModel();
+        SourceViewHolder.displayImageCenter(imageView, source.getHandleUrl(), getContext(), R.drawable.lei_da, false);
+    }
+
+    public static void displayImageCenter(final ImageView imageview, String url, Context context, int defultPic, Boolean isCircleCrop) {
+        RequestOptions options = null;
+        if (isCircleCrop) {
+            options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).placeholder(defultPic).error(defultPic).dontAnimate().circleCropTransform();
+        } else {
+            options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).placeholder(defultPic).error(defultPic).dontAnimate();
+        }
+
+        Glide.with(context).load(url).apply(options).into(new SimpleTarget<Drawable>() {
+            @Override
+            public void onResourceReady(Drawable drawable, Transition<? super Drawable> transition) {
+                if (drawable != null) {
+                    imageview.setImageDrawable(drawable);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onViewDetachedFromWindow() {
+        super.onViewDetachedFromWindow();
+        Glide.with(getContext()).clear(imageView);
+        imageView.setImageDrawable(null);
+    }
 
     //获取图片url
     public String getUrl(Model model, int imageWidth) {
@@ -94,57 +148,5 @@ public class SourceViewHolder extends ViewHolder {
 
         imageWidth = imageWidth > 900 ? 900 : imageWidth;
         return (int) imageWidth;
-    }
-
-    @Override
-    public void onBindViewHolder(final Model model) {
-        String url = getUrl(model, getPicWidth(model));
-        Log.i("chg", "图片链接：" + url);
-
-        SourceViewHolder.displayImageCenter(imageView, url, getContext(), R.drawable.lei_da, false);
-
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getCustomData() != null) {
-                    final FoundSendData foundSendData = (FoundSendData) getCustomData();
-                    HashMap map = new HashMap();
-                    map.put("position", getAdapterPosition());
-                    map.put("sources", foundSendData.getContent().getSource());
-                    getEventTransmissionListener().onEventTransmission(this, map, 0, null);
-                } else {
-                    getEventTransmissionListener().onEventTransmission(this, model, 0, null);
-                }
-            }
-        });
-    }
-
-
-    public static void displayImageCenter(final ImageView imageview, String url, Context context, int defultPic, Boolean isCircleCrop) {
-
-
-        RequestOptions options = null;
-        if (isCircleCrop) {
-            options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).placeholder(defultPic).error(defultPic).dontAnimate().circleCropTransform();
-        } else {
-            options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).placeholder(defultPic).error(defultPic).dontAnimate();
-        }
-
-        Glide.with(context).load(url).apply(options).into(new SimpleTarget<Drawable>() {
-            @Override
-            public void onResourceReady(Drawable drawable, Transition<? super Drawable> transition) {
-                if (drawable != null) {
-                    imageview.setImageDrawable(drawable);
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onViewDetachedFromWindow() {
-        super.onViewDetachedFromWindow();
-        Glide.with(getContext()).clear(imageView);
-
-        imageView.setImageResource(R.drawable.ic_launcher_background);
     }
 }

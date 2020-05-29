@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
@@ -26,6 +27,10 @@ public class ShowBigImageViewActivity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(ShowBigImageViewActivity.this);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(manager);
+
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
+
 
         HashMap map = (HashMap) getIntent().getExtras().get("sources");
         recyclerView.setData((List<Model>) map.get("sources"));
