@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * 封装的ViewHolder类
  */
-public abstract class ViewHolder extends RecyclerView.ViewHolder {
+public class ViewHolder<M extends Model> extends RecyclerView.ViewHolder implements ViewHolderLifeCycle<M> {
 
     private EventTransmissionListener eventTransmissionListener;
     private ViewGroup parent;
-    private Model model;
+    private M model;
 
     public ViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
         super(itemView);
@@ -28,11 +28,11 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
         return itemView.getContext();
     }
 
-    public Model getModel() {
+    public M getModel() {
         return model;
     }
 
-    public void setModel(Model model) {
+    public void setModel(M model) {
         this.model = model;
     }
 
@@ -48,7 +48,6 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
     public final <T extends View> T findViewById(@IdRes int id) {
         return itemView.findViewById(id);
     }
-
 
     public ViewGroup getParent() {
         return parent;
@@ -71,34 +70,24 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
         return (Adapter) ((RecyclerView) getParent()).getAdapter();
     }
 
-    /**
-     * 绑定数据
-     *
-     * @param model 具体的数据
-     */
-    public void onBindViewHolder(Model model) {
+    @Override
+    public void onBindViewHolder(M model) {
         this.model = model;
     }
 
-    /**
-     * 将要显示
-     */
+    @Override
     public void onViewAttachedToWindow() {
 
     }
 
-    /**
-     * 不在显示
-     */
+    @Override
     public void onViewDetachedFromWindow() {
 
     }
 
-
-    /**
-     * 即将销毁
-     */
+    @Override
     public void onViewRecycled() {
 
     }
+
 }

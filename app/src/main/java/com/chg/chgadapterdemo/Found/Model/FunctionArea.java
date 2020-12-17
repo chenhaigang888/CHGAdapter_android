@@ -3,6 +3,7 @@ package com.chg.chgadapterdemo.Found.Model;
 import android.view.ViewGroup;
 
 import com.chg.CHGAdapter.Model;
+import com.chg.CHGAdapter.ViewHolder;
 import com.chg.chgadapterdemo.Found.Holder.FunctionAreaViewHolder;
 import com.chg.chgadapterdemo.R;
 

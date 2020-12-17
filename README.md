@@ -7,3 +7,6 @@
 > implementation 'com.chg.CHGAdapter:CHGAdapter:1.0.2'
 
 
+### example
+
+

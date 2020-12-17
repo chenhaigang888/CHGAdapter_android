@@ -21,7 +21,7 @@ import com.chg.chgadapterdemo.R;
 
 import java.util.List;
 
-public class FoundSendDataViewHolder extends ViewHolder {
+public class FoundSendDataViewHolder extends ViewHolder<FoundSendData> {
 
     private TextView content;
     private CHGRecycleView chgRecycleView;
@@ -48,7 +48,7 @@ public class FoundSendDataViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(Model model) {
+    public void onBindViewHolder(FoundSendData model) {
         super.onBindViewHolder(model);
         FoundSendData foundSendData = (FoundSendData) model;
         content.setText(foundSendData.getContent().getContent());

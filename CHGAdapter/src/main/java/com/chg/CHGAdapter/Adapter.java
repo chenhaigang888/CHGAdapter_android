@@ -41,7 +41,7 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter {
     private SlideMomentumListener slideMomentumListener;
     private Object customData;
     //和viewType一一对应
-    private Class<RecyclerView.ViewHolder> viewHolderClass;
+    private Class<ViewHolder<Model>> viewHolderClass;
 
     public SlideMomentumListener getSlideMomentumListener() {
         return slideMomentumListener;

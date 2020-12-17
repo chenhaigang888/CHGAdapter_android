@@ -14,7 +14,7 @@ import com.chg.chgadapterdemo.R;
 
 import java.util.List;
 
-public class FunctionAreaViewHolder extends ViewHolder {
+public class FunctionAreaViewHolder extends ViewHolder<FunctionArea> {
 
     private CHGRecycleView recycleView;
 
@@ -29,11 +29,11 @@ public class FunctionAreaViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(Model model) {
+    public void onBindViewHolder(FunctionArea model) {
         super.onBindViewHolder(model);
-        FunctionArea functionArea = (FunctionArea) model;
+//        FunctionArea functionArea = (FunctionArea) model;
 
-        recycleView.setData((List) functionArea.getFuncItems());
+        recycleView.setData((List) model.getFuncItems());
         recycleView.setEventTransmissionListener(getEventTransmissionListener());
     }
 }

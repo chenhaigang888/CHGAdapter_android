@@ -10,7 +10,7 @@ import java.util.List;
 /**
  *
  */
-public class CHGRecycleView extends RecyclerView {
+public class CHGRecycleView<M extends Model> extends RecyclerView {
 
     public void setSlideMomentumListener(com.chg.CHGAdapter.Adapter.SlideMomentumListener slideMomentumListener) {
         ((com.chg.CHGAdapter.Adapter)getAdapter()).setSlideMomentumListener(slideMomentumListener);
@@ -31,7 +31,7 @@ public class CHGRecycleView extends RecyclerView {
         setAdapter(new com.chg.CHGAdapter.Adapter(null, getContext()));
     }
 
-    public List<Model> getData() {
+    public List<M> getData() {
         return ((com.chg.CHGAdapter.Adapter) getAdapter()).getModels();
     }
 
@@ -43,9 +43,9 @@ public class CHGRecycleView extends RecyclerView {
         ((com.chg.CHGAdapter.Adapter) getAdapter()).setEventTransmissionListener(eventTransmissionListener);
     }
 
-    public void setData(List<Model> data) {
+    public void setData(List<M> models) {
         com.chg.CHGAdapter.Adapter adapter = (com.chg.CHGAdapter.Adapter) getAdapter();
-        adapter.setModels(data);
+        adapter.setModels(models);
         adapter.notifyDataSetChanged();
     }
 

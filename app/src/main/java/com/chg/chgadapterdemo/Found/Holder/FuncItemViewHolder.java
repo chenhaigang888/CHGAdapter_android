@@ -12,7 +12,7 @@ import com.chg.CHGAdapter.ViewHolder;
 import com.chg.chgadapterdemo.Found.Model.FuncItem;
 import com.chg.chgadapterdemo.R;
 
-public class FuncItemViewHolder extends ViewHolder {
+public class FuncItemViewHolder extends ViewHolder<FuncItem> {
     private ImageView icon;
     private TextView name;
 
@@ -23,12 +23,11 @@ public class FuncItemViewHolder extends ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(Model model) {
+    public void onBindViewHolder(FuncItem model) {
         super.onBindViewHolder(model);
-        FuncItem funcItem = (FuncItem) model;
 
-        icon.setImageResource(funcItem.getIcon());
-        name.setText(funcItem.getName());
+        icon.setImageResource(model.getIcon());
+        name.setText(model.getName());
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -23,7 +23,7 @@ import com.chg.chgadapterdemo.R;
 
 import java.util.HashMap;
 
-public class SourceViewHolder extends ViewHolder {
+public class SourceViewHolder extends ViewHolder<Source> {
 
     private ImageView imageView;
 
@@ -49,10 +49,10 @@ public class SourceViewHolder extends ViewHolder {
 
 
     @Override
-    public void onBindViewHolder(final Model model) {
+    public void onBindViewHolder(final Source model) {
         super.onBindViewHolder(model);
-        Source source = (Source) model;
-        source.setHandleUrl(getUrl(getModel(), getPicWidth(getModel())));
+//        Source source = (Source) model;
+        model.setHandleUrl(getUrl(getModel(), getPicWidth(getModel())));
     }
 
     @Override
