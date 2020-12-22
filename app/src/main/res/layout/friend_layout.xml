@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="好友昵称"
-        android:textAlignment="center" />
+         />
 
     <TextView
         android:id="@+id/gender"
@@ -25,5 +25,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="好友性别"
-        android:textAlignment="center" />
+        />
 </LinearLayout>
