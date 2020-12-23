@@ -15,17 +15,17 @@ public interface EventTransmissionListener {
      * @param callBack 异步回调返回数据
      * @return 同步返回数据
      */
-    public Object onEventTransmission(Object target, Object params, int tag, CallBack callBack);
+     Object onEventTransmission(Object target, Object params, int tag, CallBack callBack);
 
     /**
      * 回调
      */
-    public interface CallBack {
+     interface CallBack {
         /**
          * 回调
          *
          * @param object 回调传递的内容
-         * @return
+         * @return 同步返回数据
          */
         public Object callBack(Object object);
     }

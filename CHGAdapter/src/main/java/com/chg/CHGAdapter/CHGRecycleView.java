@@ -2,14 +2,9 @@ package com.chg.CHGAdapter;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
-/**
- *
- */
 public class CHGRecycleView<M extends Model> extends RecyclerView {
 
     public void setSlideMomentumListener(com.chg.CHGAdapter.Adapter.SlideMomentumListener slideMomentumListener) {

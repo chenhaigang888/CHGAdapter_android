@@ -1,7 +1,6 @@
 package com.chg.CHGAdapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +26,12 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter {
          *
          * @return
          */
-        public int onRemainingAmount();
+         int onRemainingAmount();
 
         /**
          * 达到设置的剩余量时候触发
          */
-        public void onArriveRemainingAmount();
+         void onArriveRemainingAmount();
     }
 
     private List<M> models;
@@ -90,8 +89,8 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(viewType, parent, false);
         try {
-            Constructor c2 = viewHolderClass.getDeclaredConstructor(View.class, EventTransmissionListener.class);
-            ViewHolder viewHolder = (ViewHolder) c2.newInstance(view, eventTransmissionListener);
+            Constructor constructor = viewHolderClass.getDeclaredConstructor(View.class, EventTransmissionListener.class);
+            ViewHolder viewHolder = (ViewHolder) constructor.newInstance(view, eventTransmissionListener);
             viewHolder.setParent(parent);
             return viewHolder;
         } catch (NoSuchMethodException e) {

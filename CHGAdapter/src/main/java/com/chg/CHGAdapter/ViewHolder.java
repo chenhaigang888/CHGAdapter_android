@@ -23,7 +23,6 @@ public class ViewHolder<M extends Model> extends RecyclerView.ViewHolder impleme
         this.eventTransmissionListener = eventTransmissionListener;
     }
 
-
     public Context getContext() {
         return itemView.getContext();
     }
