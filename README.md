@@ -1,4 +1,6 @@
 # CHGAdapter_android
+[ ![Download](https://api.bintray.com/packages/chenhaigang888/CHGAdapter_android/CHGAdapter_android/images/download.svg) ](https://bintray.com/chenhaigang888/CHGAdapter_android/CHGAdapter_android/_latestVersion)
+
 ### Android(CHGAdapter)
 - Java:https://github.com/chenhaigang888/CHGAdapter_android 
 - Kotlin:https://github.com/chenhaigang888/CHGAdapter_Kotlin
