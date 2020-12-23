@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * 封装的ViewHolder类
  */
-public class ViewHolder<M extends Model> extends RecyclerView.ViewHolder implements ViewHolderLifeCycle<M> {
+public class ViewHolder<M extends Model> extends RecyclerView.ViewHolder implements ViewHolderLifeCycle<M> ,Notify{
 
     private EventTransmissionListener eventTransmissionListener;
     private ViewGroup parent;
@@ -69,6 +69,10 @@ public class ViewHolder<M extends Model> extends RecyclerView.ViewHolder impleme
         return (Adapter) ((RecyclerView) getParent()).getAdapter();
     }
 
+    public void ddd(){
+        getAdapter().notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(M model) {
         this.model = model;
@@ -89,4 +93,58 @@ public class ViewHolder<M extends Model> extends RecyclerView.ViewHolder impleme
 
     }
 
+
+    public void notifyCurrentItemChanged() {
+        notifyItemChanged(getAdapterPosition());
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void notifyItemChanged(int position) {
+        getAdapter().notifyItemChanged(position);
+    }
+
+    @Override
+    public void notifyItemChanged(int position, @Nullable Object payload) {
+        getAdapter().notifyItemChanged(position,payload);
+    }
+
+    @Override
+    public void notifyItemRangeChanged(int positionStart, int itemCount) {
+        getAdapter().notifyItemRangeChanged(positionStart,itemCount);
+    }
+
+    @Override
+    public void notifyItemRangeChanged(int positionStart, int itemCount, @Nullable Object payload) {
+        getAdapter().notifyItemRangeChanged(positionStart,itemCount,payload);
+    }
+
+    @Override
+    public void notifyItemInserted(int position) {
+        getAdapter().notifyItemInserted(position);
+    }
+
+    @Override
+    public void notifyItemMoved(int fromPosition, int toPosition) {
+        getAdapter().notifyItemMoved(fromPosition,toPosition);
+    }
+
+    @Override
+    public void notifyItemRangeInserted(int positionStart, int itemCount) {
+        getAdapter().notifyItemRangeInserted(positionStart,itemCount);
+    }
+
+    @Override
+    public void notifyItemRemoved(int position) {
+        getAdapter().notifyItemRemoved(position);
+    }
+
+    @Override
+    public void notifyItemRangeRemoved(int positionStart, int itemCount) {
+        getAdapter().notifyItemRangeRemoved(positionStart,itemCount);
+    }
 }

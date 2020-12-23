@@ -2,10 +2,12 @@ package com.chg.CHGAdapter;
 
 import android.content.Context;
 import android.util.AttributeSet;
+
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class CHGRecycleView<M extends Model> extends RecyclerView {
+public class CHGRecycleView<M extends Model> extends RecyclerView implements Notify{
 
     public void setSlideMomentumListener(com.chg.CHGAdapter.Adapter.SlideMomentumListener slideMomentumListener) {
         ((com.chg.CHGAdapter.Adapter)getAdapter()).setSlideMomentumListener(slideMomentumListener);
@@ -50,5 +52,56 @@ public class CHGRecycleView<M extends Model> extends RecyclerView {
             super.setAdapter(adapter);
         } else
             new Exception("CHGRecycleView's adapter must use com.example.test.CHGAdapter.Adapter or sub Class of com.example.test.CHGAdapter.Adapter");
+    }
+
+
+    @Override
+    public void notifyDataSetChanged() {
+        getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void notifyItemChanged(int position) {
+        getAdapter().notifyItemChanged(position);
+    }
+
+    @Override
+    public void notifyItemChanged(int position, @Nullable Object payload) {
+        getAdapter().notifyItemChanged(position,payload);
+    }
+
+    @Override
+    public void notifyItemRangeChanged(int positionStart, int itemCount) {
+        getAdapter().notifyItemRangeChanged(positionStart,itemCount);
+    }
+
+    @Override
+    public void notifyItemRangeChanged(int positionStart, int itemCount, @Nullable Object payload) {
+        getAdapter().notifyItemRangeChanged(positionStart, itemCount, payload);
+    }
+
+    @Override
+    public void notifyItemInserted(int position) {
+        getAdapter().notifyItemInserted(position);
+    }
+
+    @Override
+    public void notifyItemMoved(int fromPosition, int toPosition) {
+        getAdapter().notifyItemMoved(fromPosition, toPosition);
+    }
+
+    @Override
+    public void notifyItemRangeInserted(int positionStart, int itemCount) {
+        getAdapter().notifyItemRangeInserted(positionStart,itemCount);
+    }
+
+    @Override
+    public void notifyItemRemoved(int position) {
+        getAdapter().notifyItemRemoved(position);
+    }
+
+    @Override
+    public void notifyItemRangeRemoved(int positionStart, int itemCount) {
+        getAdapter().notifyItemRangeRemoved(positionStart, itemCount);
     }
 }

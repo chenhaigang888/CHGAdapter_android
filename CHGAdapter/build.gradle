@@ -97,8 +97,7 @@ bintray {
 //    user = properties.getProperty("bintray.user")
 //    key = properties.getProperty("bintray.apikey")
 
-    user = "chenhaigang888"
-    key = "fe95a9df8dff13570f2cd3febc0d44bf63a03761"
+    
 
     configurations = ['archives']
     pkg {
