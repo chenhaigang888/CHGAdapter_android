@@ -2,6 +2,7 @@ package com.chg.chgadapterdemo.demo.Holder;
 
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,8 +20,11 @@ public class FriendViewHolder extends ViewHolder {
     TextView username;
     TextView gender;
 
-    public FriendViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
-        super(itemView, eventTransmissionListener);
+
+
+
+    public FriendViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener, ViewGroup parent) {
+        super(itemView, eventTransmissionListener, parent);
         icon = itemView.findViewById(R.id.icon);
         username = itemView.findViewById(R.id.username);
         gender = itemView.findViewById(R.id.gender);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -27,8 +28,8 @@ public class SourceViewHolder extends ViewHolder<Source> {
 
     private ImageView imageView;
 
-    public SourceViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
-        super(itemView, eventTransmissionListener);
+    public SourceViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener, ViewGroup parent) {
+        super(itemView, eventTransmissionListener, parent);
         imageView = findViewById(R.id.imageView);
 
         itemView.setOnClickListener(new View.OnClickListener() {

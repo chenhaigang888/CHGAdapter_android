@@ -3,6 +3,7 @@ package com.chg.chgadapterdemo.Found.Holder;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,8 +35,8 @@ public class FoundSendDataViewHolder extends ViewHolder<FoundSendData> {
     private ImageView imageView2;
     private ImageView imageView3;
 
-    public FoundSendDataViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
-        super(itemView, eventTransmissionListener);
+    public FoundSendDataViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener, ViewGroup parent) {
+        super(itemView, eventTransmissionListener, parent);
         content = findViewById(R.id.content);
         chgRecycleView = findViewById(R.id.chgRecycleView);
         headImageView = findViewById(R.id.headImageView);

@@ -9,6 +9,22 @@ import java.util.List;
 
 public class CHGRecycleView<M extends Model> extends RecyclerView implements Notify{
 
+    /**
+     * 设置 itemClickListener
+     * @param onItemClickListener
+     */
+    public void setOnItemClickListener(com.chg.CHGAdapter.Adapter.OnItemClickListener onItemClickListener) {
+        ((com.chg.CHGAdapter.Adapter)getAdapter()).setOnItemClickListener(onItemClickListener);
+    }
+
+    /**
+     * 设置 onItemLongClickListener
+     * @param onItemLongClickListener
+     */
+    public void setOnItemLongClickListener(com.chg.CHGAdapter.Adapter.OnItemLongClickListener onItemLongClickListener) {
+        ((com.chg.CHGAdapter.Adapter)getAdapter()).setOnItemLongClickListener(onItemLongClickListener);
+    }
+
     public void setSlideMomentumListener(com.chg.CHGAdapter.Adapter.SlideMomentumListener slideMomentumListener) {
         ((com.chg.CHGAdapter.Adapter)getAdapter()).setSlideMomentumListener(slideMomentumListener);
     }
@@ -53,7 +69,6 @@ public class CHGRecycleView<M extends Model> extends RecyclerView implements Not
         } else
             new Exception("CHGRecycleView's adapter must use com.example.test.CHGAdapter.Adapter or sub Class of com.example.test.CHGAdapter.Adapter");
     }
-
 
     @Override
     public void notifyDataSetChanged() {

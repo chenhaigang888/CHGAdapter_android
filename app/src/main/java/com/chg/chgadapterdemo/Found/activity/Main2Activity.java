@@ -4,15 +4,19 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chg.CHGAdapter.Adapter;
 import com.chg.CHGAdapter.CHGRecycleView;
 import com.chg.CHGAdapter.EventTransmissionListener;
+import com.chg.CHGAdapter.Model;
 import com.chg.chgadapterdemo.Found.Holder.FuncItemViewHolder;
 import com.chg.chgadapterdemo.Found.Holder.SourceViewHolder;
 import com.chg.chgadapterdemo.Found.Model.Found;
@@ -107,6 +111,21 @@ public class Main2Activity extends AppCompatActivity {
                 if (!isLoading) {
                     postAsynHttp();
                 }
+            }
+        });
+
+        recyclerView.setOnItemClickListener(new Adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerView recyclerView, View view, int position, Model model) {
+                Toast.makeText(Main2Activity.this,"我好像被点击了",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        recyclerView.setOnItemLongClickListener(new Adapter.OnItemLongClickListener() {
+            @Override
+            public Boolean onItemLongClick(RecyclerView recyclerView, View view, int position, Model model) {
+                Toast.makeText(Main2Activity.this,"我好像被长按了",Toast.LENGTH_LONG).show();
+                return true;
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.chg.chgadapterdemo.Found.Holder;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,8 +19,8 @@ public class FunctionAreaViewHolder extends ViewHolder<FunctionArea> {
 
     private CHGRecycleView recycleView;
 
-    public FunctionAreaViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
-        super(itemView, eventTransmissionListener);
+    public FunctionAreaViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener, ViewGroup parent) {
+        super(itemView, eventTransmissionListener, parent);
         recycleView = findViewById(R.id.funcRecycleView);
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());

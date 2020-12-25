@@ -1,6 +1,7 @@
 package com.chg.chgadapterdemo.demo.Holder;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -18,8 +19,8 @@ public class BannersViewHolder extends ViewHolder {
 
     CHGRecycleView recyclerView;
 
-    public BannersViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
-        super(itemView, eventTransmissionListener);
+    public BannersViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener, ViewGroup parent) {
+        super(itemView, eventTransmissionListener, parent);
         recyclerView = itemView.findViewById(R.id.recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(itemView.getContext());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);

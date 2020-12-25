@@ -2,6 +2,7 @@ package com.chg.chgadapterdemo.demo.Holder;
 
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,14 +24,13 @@ public class UserViewHolder extends ViewHolder {
     TextView gender;
     CHGRecycleView recyclerView;
 
-    public UserViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
-        super(itemView, eventTransmissionListener);
+    public UserViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener, ViewGroup parent) {
+        super(itemView, eventTransmissionListener, parent);
         icon = itemView.findViewById(R.id.icon);
         username = itemView.findViewById(R.id.username);
         gender = itemView.findViewById(R.id.gender);
         recyclerView = itemView.findViewById(R.id.recyclerView);
     }
-
 
     @Override
     public void onBindViewHolder(final Model model) {

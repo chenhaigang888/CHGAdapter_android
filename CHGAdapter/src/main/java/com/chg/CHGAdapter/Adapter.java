@@ -15,7 +15,24 @@ import java.util.List;
 /**
  * @param <M> M extends Model
  */
-public class Adapter<M extends Model> extends RecyclerView.Adapter {
+public class Adapter<M extends Model> extends RecyclerView.Adapter implements View.OnClickListener, View.OnLongClickListener {
+
+    @Override
+    public void onClick(View v) {
+        if (onItemClickListener != null) {
+            int position = recyclerView.getChildAdapterPosition(v);
+            onItemClickListener.onItemClick(recyclerView,v,position,getModels().get(position));
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (onItemLongClickListener != null) {
+            int position = recyclerView.getChildAdapterPosition(v);
+            return onItemLongClickListener.onItemLongClick(recyclerView,v,position,getModels().get(position));
+        }
+        return true;
+    }
 
     /**
      * 监听滑动的数量
@@ -34,11 +51,24 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter {
          void onArriveRemainingAmount();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(RecyclerView recyclerView,View view, int position, Model model);
+    }
+
+    public interface OnItemLongClickListener {
+        Boolean onItemLongClick(RecyclerView recyclerView,View view, int position, Model model);
+    }
+
     private List<M> models;
     private Context context;
+    private Object customData;
+    private RecyclerView recyclerView;
+
     private EventTransmissionListener eventTransmissionListener;
     private SlideMomentumListener slideMomentumListener;
-    private Object customData;
+    private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
+
     //和viewType一一对应
     private Class<ViewHolder<Model>> viewHolderClass;
 
@@ -48,6 +78,22 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter {
 
     public void setSlideMomentumListener(SlideMomentumListener slideMomentumListener) {
         this.slideMomentumListener = slideMomentumListener;
+    }
+
+    public OnItemClickListener getOnItemClickListener() {
+        return onItemClickListener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public OnItemLongClickListener getOnItemLongClickListener() {
+        return onItemLongClickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
     }
 
     public List<M> getModels() {
@@ -79,6 +125,10 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter {
         this.context = context;
     }
 
+    private void initViewListener(View view){
+        view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
+    }
     @Override
     public int getItemViewType(int position) {
         viewHolderClass = models.get(position).getHolderClass(position);
@@ -88,6 +138,7 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(viewType, parent, false);
+        initViewListener(view);
         try {
             Constructor constructor = viewHolderClass.getDeclaredConstructor(View.class, EventTransmissionListener.class,ViewGroup.class);
             ViewHolder viewHolder = (ViewHolder) constructor.newInstance(view, eventTransmissionListener,parent);
@@ -132,6 +183,12 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter {
     public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
         ((ViewHolder) holder).onViewDetachedFromWindow();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView= recyclerView;
     }
 
     @Override

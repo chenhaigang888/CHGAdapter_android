@@ -1,6 +1,7 @@
 package com.chg.chgadapterdemo.Found.Holder;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,8 +17,8 @@ public class FuncItemViewHolder extends ViewHolder<FuncItem> {
     private ImageView icon;
     private TextView name;
 
-    public FuncItemViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
-        super(itemView, eventTransmissionListener);
+    public FuncItemViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener, ViewGroup parent) {
+        super(itemView, eventTransmissionListener, parent);
         icon = findViewById(R.id.funcIcon);
         name = findViewById(R.id.funcName);
     }
