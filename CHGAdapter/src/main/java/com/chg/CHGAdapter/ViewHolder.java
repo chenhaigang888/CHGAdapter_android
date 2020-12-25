@@ -18,9 +18,10 @@ public class ViewHolder<M extends Model> extends RecyclerView.ViewHolder impleme
     private ViewGroup parent;
     private M model;
 
-    public ViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener) {
+    public ViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener, ViewGroup parent) {
         super(itemView);
         this.eventTransmissionListener = eventTransmissionListener;
+        this.parent = parent;
     }
 
     public Context getContext() {

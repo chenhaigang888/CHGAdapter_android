@@ -89,9 +89,8 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(viewType, parent, false);
         try {
-            Constructor constructor = viewHolderClass.getDeclaredConstructor(View.class, EventTransmissionListener.class);
-            ViewHolder viewHolder = (ViewHolder) constructor.newInstance(view, eventTransmissionListener);
-            viewHolder.setParent(parent);
+            Constructor constructor = viewHolderClass.getDeclaredConstructor(View.class, EventTransmissionListener.class,ViewGroup.class);
+            ViewHolder viewHolder = (ViewHolder) constructor.newInstance(view, eventTransmissionListener,parent);
             return viewHolder;
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

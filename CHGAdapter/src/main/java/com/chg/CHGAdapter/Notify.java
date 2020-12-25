@@ -7,8 +7,6 @@ import androidx.annotation.Nullable;
  */
 public interface Notify {
 
-
-
     void notifyDataSetChanged();
 
     void notifyItemChanged(int position);
