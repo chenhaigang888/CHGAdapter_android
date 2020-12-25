@@ -19,6 +19,11 @@ public class FuncItemViewHolder extends ViewHolder<FuncItem> {
 
     public FuncItemViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener, ViewGroup parent) {
         super(itemView, eventTransmissionListener, parent);
+
+    }
+
+    @Override
+    public void onCreated() {
         icon = findViewById(R.id.funcIcon);
         name = findViewById(R.id.funcName);
     }

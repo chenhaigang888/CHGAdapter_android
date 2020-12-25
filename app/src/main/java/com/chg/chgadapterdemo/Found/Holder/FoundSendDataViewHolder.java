@@ -1,6 +1,5 @@
 package com.chg.chgadapterdemo.Found.Holder;
 
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.chg.CHGAdapter.Adapter;
-import com.chg.CHGAdapter.CHGRecycleView;
+import com.chg.CHGAdapter.CHGRecyclerView;
 import com.chg.CHGAdapter.EventTransmissionListener;
-import com.chg.CHGAdapter.Model;
 import com.chg.CHGAdapter.ViewHolder;
 import com.chg.chgadapterdemo.Found.Model.FoundSendData;
 import com.chg.chgadapterdemo.Found.Model.FoundUser;
@@ -25,7 +23,7 @@ import java.util.List;
 public class FoundSendDataViewHolder extends ViewHolder<FoundSendData> {
 
     private TextView content;
-    private CHGRecycleView chgRecycleView;
+    private CHGRecyclerView chgRecyclerView;
     private ImageView headImageView;
     private TextView nickname;
     private TextView remark;
@@ -37,8 +35,12 @@ public class FoundSendDataViewHolder extends ViewHolder<FoundSendData> {
 
     public FoundSendDataViewHolder(@NonNull View itemView, EventTransmissionListener eventTransmissionListener, ViewGroup parent) {
         super(itemView, eventTransmissionListener, parent);
+    }
+
+    @Override
+    public void onCreated() {
         content = findViewById(R.id.content);
-        chgRecycleView = findViewById(R.id.chgRecycleView);
+        chgRecyclerView = findViewById(R.id.chgRecycleView);
         headImageView = findViewById(R.id.headImageView);
         nickname = findViewById(R.id.nickname);
         remark = findViewById(R.id.remark);
@@ -57,16 +59,16 @@ public class FoundSendDataViewHolder extends ViewHolder<FoundSendData> {
         List sources = foundSendData.getContent().getSource();
         if (sources != null) {
             if (sources.size() == 1) {
-                chgRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+                chgRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
             } else if (sources.size() == 2) {
-                chgRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                chgRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
             } else {
-                chgRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+                chgRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
             }
         }
-        chgRecycleView.setData(sources);
-        chgRecycleView.setEventTransmissionListener(getEventTransmissionListener());
-        ((Adapter) chgRecycleView.getAdapter()).setCustomData(foundSendData);
+        chgRecyclerView.setModels(sources);
+        chgRecyclerView.setEventTransmissionListener(getEventTransmissionListener());
+        ((Adapter) chgRecyclerView.getAdapter()).setCustomData(foundSendData);
 
         SourceViewHolder.displayImageCenter(headImageView, getUrl(foundSendData.getUser().getAvatar(), 24), getContext(), R.drawable.lei_da, true);
 

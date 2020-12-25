@@ -4,7 +4,7 @@
     android:layout_height="150dp"
     android:background="#ff0000">
 
-    <com.chg.CHGAdapter.CHGRecycleView
+    <com.chg.CHGAdapter.CHGRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

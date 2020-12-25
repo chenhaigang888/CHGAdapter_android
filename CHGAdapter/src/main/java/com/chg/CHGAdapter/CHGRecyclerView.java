@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class CHGRecycleView<M extends Model> extends RecyclerView implements Notify{
+public class CHGRecyclerView<M extends Model> extends RecyclerView implements Notify{
 
     /**
      * 设置 itemClickListener
@@ -29,23 +29,31 @@ public class CHGRecycleView<M extends Model> extends RecyclerView implements Not
         ((com.chg.CHGAdapter.Adapter)getAdapter()).setSlideMomentumListener(slideMomentumListener);
     }
 
-    public CHGRecycleView(Context context) {
+    public CHGRecyclerView(Context context) {
         super(context);
         setAdapter(new com.chg.CHGAdapter.Adapter(null, getContext()));
     }
 
-    public CHGRecycleView(Context context, AttributeSet attrs) {
+    public CHGRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setAdapter(new com.chg.CHGAdapter.Adapter(null, getContext()));
     }
 
-    public CHGRecycleView(Context context, AttributeSet attrs, int defStyle) {
+    public CHGRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setAdapter(new com.chg.CHGAdapter.Adapter(null, getContext()));
     }
 
     public List<M> getData() {
         return ((com.chg.CHGAdapter.Adapter) getAdapter()).getModels();
+    }
+
+    public void setCustomData(Object customData){
+        ((com.chg.CHGAdapter.Adapter)getAdapter()).setCustomData(customData);
+    }
+
+    public Object getCustomData(){
+        return ((com.chg.CHGAdapter.Adapter)getAdapter()).getCustomData();
     }
 
     public EventTransmissionListener getEventTransmissionListener() {
@@ -56,7 +64,7 @@ public class CHGRecycleView<M extends Model> extends RecyclerView implements Not
         ((com.chg.CHGAdapter.Adapter) getAdapter()).setEventTransmissionListener(eventTransmissionListener);
     }
 
-    public void setData(List<M> models) {
+    public void setModels(List<M> models) {
         com.chg.CHGAdapter.Adapter adapter = (com.chg.CHGAdapter.Adapter) getAdapter();
         adapter.setModels(models);
         adapter.notifyDataSetChanged();

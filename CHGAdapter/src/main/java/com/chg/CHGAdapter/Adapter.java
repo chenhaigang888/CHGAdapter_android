@@ -142,6 +142,7 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter implements Vi
         try {
             Constructor constructor = viewHolderClass.getDeclaredConstructor(View.class, EventTransmissionListener.class,ViewGroup.class);
             ViewHolder viewHolder = (ViewHolder) constructor.newInstance(view, eventTransmissionListener,parent);
+            viewHolder.onCreated();
             return viewHolder;
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

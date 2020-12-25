@@ -47,7 +47,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.chg.CHGAdapter.CHGRecycleView
+    <com.chg.CHGAdapter.CHGRecyclerView
         android:id="@+id/chgRecycleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

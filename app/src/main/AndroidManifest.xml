@@ -17,14 +17,15 @@
             android:name=".Found.activity.SearchActivity"
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".demo.MainActivity"
-            android:label=""
-            android:theme="@style/AppTheme.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".demo.MainActivity"-->
+<!--            android:label=""-->
+<!--            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".Found.activity.ShowBigImageViewActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
+<!--        android:name=".Found.activity.Main2Activity"-->
         <activity
             android:name=".Found.activity.Main2Activity"
             android:label="@string/app_name"

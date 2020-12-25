@@ -48,6 +48,11 @@ public class SourceViewHolder extends ViewHolder<Source> {
         });
     }
 
+    @Override
+    public void onCreated() {
+
+    }
+
 
     @Override
     public void onBindViewHolder(final Source model) {

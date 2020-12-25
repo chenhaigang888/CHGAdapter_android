@@ -3,7 +3,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 
-version = "1.0.5"
+version = "1.0.6"
 
 
 android {
@@ -97,7 +97,8 @@ bintray {
 //    user = properties.getProperty("bintray.user")
 //    key = properties.getProperty("bintray.apikey")
 
-    
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
 
     configurations = ['archives']
     pkg {

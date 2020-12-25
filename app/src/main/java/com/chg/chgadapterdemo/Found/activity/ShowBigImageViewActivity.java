@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 
-import com.chg.CHGAdapter.CHGRecycleView;
+import com.chg.CHGAdapter.CHGRecyclerView;
 import com.chg.CHGAdapter.EventTransmissionListener;
 import com.chg.CHGAdapter.Model;
 import com.chg.chgadapterdemo.R;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ShowBigImageViewActivity extends AppCompatActivity {
-    private CHGRecycleView recyclerView;
+    private CHGRecyclerView recyclerView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +33,7 @@ public class ShowBigImageViewActivity extends AppCompatActivity {
 
 
         HashMap map = (HashMap) getIntent().getExtras().get("sources");
-        recyclerView.setData((List<Model>) map.get("sources"));
+        recyclerView.setModels((List<Model>) map.get("sources"));
         recyclerView.scrollToPosition((Integer) map.get("position"));
         recyclerView.setEventTransmissionListener(new EventTransmissionListener() {
             @Override

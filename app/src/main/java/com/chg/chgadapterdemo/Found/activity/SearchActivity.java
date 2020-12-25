@@ -7,13 +7,13 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.chg.CHGAdapter.CHGRecycleView;
+import com.chg.CHGAdapter.CHGRecyclerView;
 import com.chg.chgadapterdemo.R;
 
 public class SearchActivity extends AppCompatActivity {
 
     private EditText editText;
-    private CHGRecycleView recycleView;
+    private CHGRecyclerView recycleView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chg.CHGAdapter.Adapter;
-import com.chg.CHGAdapter.CHGRecycleView;
+import com.chg.CHGAdapter.CHGRecyclerView;
 import com.chg.CHGAdapter.EventTransmissionListener;
 import com.chg.CHGAdapter.Model;
 import com.chg.chgadapterdemo.Found.Holder.FuncItemViewHolder;
@@ -48,7 +48,7 @@ import okhttp3.Response;
 
 public class Main2Activity extends AppCompatActivity {
 
-    private CHGRecycleView recyclerView;
+    private CHGRecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private List recycleViewData = new ArrayList();
 
@@ -213,7 +213,7 @@ public class Main2Activity extends AppCompatActivity {
                     public void run() {
                         isLoading = false;
                         swipeRefreshLayout.setRefreshing(false);
-                        recyclerView.setData(recycleViewData);
+                        recyclerView.setModels(recycleViewData);
                     }
                 });
             }

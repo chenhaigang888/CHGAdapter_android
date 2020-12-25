@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * 封装的ViewHolder类
  */
-public class ViewHolder<M extends Model> extends RecyclerView.ViewHolder implements ViewHolderLifeCycle<M> ,Notify{
+public abstract class ViewHolder<M extends Model> extends RecyclerView.ViewHolder implements ViewHolderLifeCycle<M> ,Notify{
 
     private EventTransmissionListener eventTransmissionListener;
     private ViewGroup parent;
@@ -27,7 +27,7 @@ public class ViewHolder<M extends Model> extends RecyclerView.ViewHolder impleme
     public Context getContext() {
         return itemView.getContext();
     }
-
+    public abstract void onCreated();
     public M getModel() {
         return model;
     }
@@ -42,6 +42,13 @@ public class ViewHolder<M extends Model> extends RecyclerView.ViewHolder impleme
 
     public void setEventTransmissionListener(EventTransmissionListener eventTransmissionListener) {
         this.eventTransmissionListener = eventTransmissionListener;
+    }
+
+    public Object eventTransmission(Object target, Object params, int eventId, EventTransmissionListener.CallBack callBack){
+        if (eventTransmissionListener != null) {
+            return eventTransmissionListener.onEventTransmission(target,params,eventId,callBack);
+        }
+        return null;
     }
 
     @Nullable

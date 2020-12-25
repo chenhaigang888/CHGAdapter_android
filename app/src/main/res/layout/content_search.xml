@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/button" />
 
-    <com.chg.CHGAdapter.CHGRecycleView
+    <com.chg.CHGAdapter.CHGRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
