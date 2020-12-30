@@ -164,6 +164,12 @@ public class Adapter<M extends Model> extends RecyclerView.Adapter implements Vi
         ((ViewHolder) holder).onBindViewHolder(models.get(position));
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List payloads) {
+        super.onBindViewHolder(holder, position, payloads);
+        ((ViewHolder) holder).onBindViewHolder(payloads);
+    }
+
     /**
      * （当Item进入这个页面的时候调用）
      *

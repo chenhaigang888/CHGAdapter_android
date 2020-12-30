@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -85,6 +87,11 @@ public abstract class ViewHolder<M extends Model> extends RecyclerView.ViewHolde
     public void onBindViewHolder(M model) {
         this.model = model;
     }
+
+    @Override
+    public void onBindViewHolder(@NonNull List payloads){
+
+    };
 
     @Override
     public void onViewAttachedToWindow() {

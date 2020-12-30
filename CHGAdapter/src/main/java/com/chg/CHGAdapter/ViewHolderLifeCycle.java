@@ -1,5 +1,7 @@
 package com.chg.CHGAdapter;
 
+import java.util.List;
+import androidx.annotation.NonNull;
 
 /**
  * ViewHolder生命周期
@@ -13,6 +15,12 @@ public interface ViewHolderLifeCycle<M extends Model> {
      * @param model 具体的数据
      */
      void onBindViewHolder(M model);
+
+    /**
+     *
+     * @param payloads
+     */
+    void onBindViewHolder(@NonNull List payloads);
 
     /**
      * 将要显示
