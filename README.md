@@ -16,7 +16,7 @@
 
 ### Installation with Gradle
 
-> implementation 'com.chg.CHGAdapter:CHGAdapter:1.0.6'
+> implementation 'com.chg.CHGAdapter:CHGAdapter:1.0.7'
 
 
 ### example
