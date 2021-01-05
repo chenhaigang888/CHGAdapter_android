@@ -255,8 +255,8 @@ public class Main2Activity extends AppCompatActivity {
     public FunctionArea getFunctionArea() {
         if (functionArea == null) {
             functionArea = new FunctionArea();
-            String[] funcs = {"附近的人", "闪聊", "树洞", "雷达", "校友通讯录", "附近的人", "闪聊", "树洞", "雷达", "校友通讯录"};
-            int[] icons = {R.drawable.da_xue_man_you, R.drawable.shan_liao, R.drawable.shu_dong, R.drawable.tong_xun_lu, R.drawable.lei_da, R.drawable.da_xue_man_you, R.drawable.shan_liao, R.drawable.shu_dong, R.drawable.tong_xun_lu, R.drawable.lei_da};
+            String[] funcs = {"搜索","附近的人", "闪聊", "树洞", "雷达", "校友通讯录", "附近的人", "闪聊", "树洞", "雷达", "校友通讯录"};
+            int[] icons = {R.drawable.da_xue_man_you,R.drawable.da_xue_man_you, R.drawable.shan_liao, R.drawable.shu_dong, R.drawable.tong_xun_lu, R.drawable.lei_da, R.drawable.da_xue_man_you, R.drawable.shan_liao, R.drawable.shu_dong, R.drawable.tong_xun_lu, R.drawable.lei_da};
             List list = new ArrayList();
             FuncItem funcItem = null;
             for (int i = 0; i < funcs.length; i++) {
