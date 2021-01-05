@@ -1,5 +1,7 @@
 package com.chg.chgadapterdemo.Found.Holder;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.chg.CHGAdapter.Adapter;
 import com.chg.CHGAdapter.CHGRecyclerView;
 import com.chg.CHGAdapter.EventTransmissionListener;
@@ -70,12 +77,32 @@ public class FoundSendDataViewHolder extends ViewHolder<FoundSendData> {
         chgRecyclerView.setEventTransmissionListener(getEventTransmissionListener());
         ((Adapter) chgRecyclerView.getAdapter()).setCustomData(foundSendData);
 
-        SourceViewHolder.displayImageCenter(headImageView, getUrl(foundSendData.getUser().getAvatar(), 24), getContext(), R.drawable.lei_da, true);
+
+        String url = getUrl(foundSendData.getUser().getAvatar(), 24);
+        headImageView.setTag(url);
+
+        displayImageCenter(headImageView, url, getContext(), R.drawable.lei_da, true);
 
         nickname.setText(foundSendData.getUser().getFinalShowName());
         remark.setText(foundSendData.getUser().getExts());
         browses.setText(foundSendData.getContent().getBrowses() + "人看过");
         setLikesView(foundSendData);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow() {
+        super.onViewDetachedFromWindow();
+        Glide.with(getContext()).clear(headImageView);
+        headImageView.setImageResource(R.drawable.default_pic);
+
+        Glide.with(getContext()).clear(imageView1);
+        imageView1.setImageResource(R.drawable.default_pic);
+
+        Glide.with(getContext()).clear(imageView2);
+        imageView2.setImageResource(R.drawable.default_pic);
+
+        Glide.with(getContext()).clear(imageView3);
+        imageView3.setImageResource(R.drawable.default_pic);
     }
 
     public void setLikesView(FoundSendData foundSendData) {
@@ -94,7 +121,9 @@ public class FoundSendDataViewHolder extends ViewHolder<FoundSendData> {
                 imageView3.setLayoutParams(layoutParams);
 
                 FoundUser user1 = (FoundUser) likes.get(0);
-                SourceViewHolder.displayImageCenter(imageView3, getUrl(user1.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
+                String url3 = getUrl(user1.getAvatar(), 24);
+                imageView3.setTag(url3);
+                displayImageCenter(imageView3, url3, getContext(), R.drawable.lei_da, true);
             } else if (likes.size() == 2) {
                 imageView1.setVisibility(View.GONE);
                 imageView2.setVisibility(View.VISIBLE);
@@ -111,8 +140,14 @@ public class FoundSendDataViewHolder extends ViewHolder<FoundSendData> {
                 FoundUser user1 = (FoundUser) likes.get(0);
                 FoundUser user2 = (FoundUser) likes.get(1);
 
-                SourceViewHolder.displayImageCenter(imageView3, getUrl(user1.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
-                SourceViewHolder.displayImageCenter(imageView2, getUrl(user2.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
+                String url3 = getUrl(user1.getAvatar(), 24);
+                imageView3.setTag(url3);
+
+                String url2 = getUrl(user1.getAvatar(), 24);
+                imageView2.setTag(url3);
+
+                displayImageCenter(imageView3, url3, getContext(), R.drawable.default_pic, true);
+                displayImageCenter(imageView2, url2, getContext(), R.drawable.default_pic, true);
 
             } else if (likes.size() >= 3) {
                 imageView1.setVisibility(View.VISIBLE);
@@ -135,9 +170,21 @@ public class FoundSendDataViewHolder extends ViewHolder<FoundSendData> {
                 FoundUser user2 = (FoundUser) likes.get(1);
                 FoundUser user3 = (FoundUser) likes.get(2);
 
-                SourceViewHolder.displayImageCenter(imageView3, getUrl(user3.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
-                SourceViewHolder.displayImageCenter(imageView2, getUrl(user2.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
-                SourceViewHolder.displayImageCenter(imageView1, getUrl(user1.getAvatar(), 24), getContext(), R.drawable.lei_da, true);
+
+
+
+                String url3 = getUrl(user3.getAvatar(), 24);
+                imageView3.setTag(url3);
+
+                String url2 = getUrl(user2.getAvatar(), 24);
+                imageView2.setTag(url2);
+
+                String url1 = getUrl(user1.getAvatar(), 24);
+                imageView1.setTag(url1);
+
+                displayImageCenter(imageView3, url3, getContext(), R.drawable.lei_da, true);
+                displayImageCenter(imageView2, url2, getContext(), R.drawable.lei_da, true);
+                displayImageCenter(imageView1, url1, getContext(), R.drawable.lei_da, true);
             }
         }
     }
@@ -149,5 +196,27 @@ public class FoundSendDataViewHolder extends ViewHolder<FoundSendData> {
 
     public int dp2px(float dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getContext().getResources().getDisplayMetrics());
+    }
+
+
+    public void displayImageCenter(final ImageView imageview, final String url, Context context, int defultPic, Boolean isCircleCrop) {
+        RequestOptions options = null;
+        if (isCircleCrop) {
+            options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).placeholder(defultPic).error(defultPic).dontAnimate().circleCropTransform();
+        } else {
+            options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).placeholder(defultPic).error(defultPic).dontAnimate();
+        }
+
+        Glide.with(context).load(url).apply(options).into(new SimpleTarget<Drawable>() {
+            @Override
+            public void onResourceReady(Drawable drawable, Transition<? super Drawable> transition) {
+                if (imageview != null) {
+                    String urlT = (String) imageview.getTag();
+                    if (drawable != null && urlT != null && urlT.equals(url)) {
+                        imageview.setImageDrawable(drawable);
+                    }
+                }
+            }
+        });
     }
 }

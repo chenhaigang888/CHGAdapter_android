@@ -57,18 +57,20 @@ public class SourceViewHolder extends ViewHolder<Source> {
     @Override
     public void onBindViewHolder(final Source model) {
         super.onBindViewHolder(model);
-//        Source source = (Source) model;
-        model.setHandleUrl(getUrl(getModel(), getPicWidth(getModel())));
+        String url = getUrl(getModel(), getPicWidth(getModel()));
+        model.setHandleUrl(url);
     }
 
     @Override
     public void onViewAttachedToWindow() {
         super.onViewAttachedToWindow();
         Source source = (Source) getModel();
-        SourceViewHolder.displayImageCenter(imageView, source.getHandleUrl(), getContext(), R.drawable.lei_da, false);
+        String url = source.getHandleUrl();
+        imageView.setTag(url);
+        displayImageCente2(imageView, url, getContext(), R.drawable.default_pic, false);
     }
 
-    public static void displayImageCenter(final ImageView imageview, String url, Context context, int defultPic, Boolean isCircleCrop) {
+    public void displayImageCente2(final ImageView imageview, final String url, Context context, int defultPic, Boolean isCircleCrop) {
         RequestOptions options = null;
         if (isCircleCrop) {
             options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).placeholder(defultPic).error(defultPic).dontAnimate().circleCropTransform();
@@ -79,8 +81,11 @@ public class SourceViewHolder extends ViewHolder<Source> {
         Glide.with(context).load(url).apply(options).into(new SimpleTarget<Drawable>() {
             @Override
             public void onResourceReady(Drawable drawable, Transition<? super Drawable> transition) {
-                if (drawable != null) {
-                    imageview.setImageDrawable(drawable);
+                if (imageview != null) {
+                    String urlT = (String) imageview.getTag();
+                    if (drawable != null && urlT != null && urlT.equals(url)) {
+                        imageview.setImageDrawable(drawable);
+                    }
                 }
             }
         });
@@ -90,7 +95,7 @@ public class SourceViewHolder extends ViewHolder<Source> {
     public void onViewDetachedFromWindow() {
         super.onViewDetachedFromWindow();
         Glide.with(getContext()).clear(imageView);
-        imageView.setImageDrawable(null);
+        imageView.setImageResource(R.drawable.default_pic);
     }
 
     //获取图片url
