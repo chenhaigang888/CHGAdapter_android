@@ -32,6 +32,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -147,79 +149,82 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
     }
+    void refresh(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                isLoading = false;
+                swipeRefreshLayout.setRefreshing(false);
+                recyclerView.setModels(recycleViewData);
+            }
+        });
+    }
 
+    private String readStr(InputStreamReader inputStreamReader){
+        int ch;
+        StringBuilder sb = new StringBuilder();
+        while(true) {
+            try {
+                if (!((ch = inputStreamReader.read()) != -1)) break;
+                sb.append((char) ch);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
+    }
 
+    //模拟网络请求
     private void postAsynHttp() {
         isLoading = true;
         pageIndex += 1;
-        OkHttpClient mOkHttpClient = new OkHttpClient();
-        HashMap params = new HashMap();
-        params.put("appId", "1003604205986484225");
-        params.put("lat", "0");
-        params.put("lng", "0");
-        params.put("pageIndex", pageIndex + "");
-        params.put("pageSize", "10");
-        params.put("platform", "ios");
-        params.put("timestamp", "1578715788332");
-        params.put("token", "fcb525ba5eebef743a028fae49ff382c9387e2ed9d5e04fcee6913fc3ee4937b64a2104a27ef241b93c3d0baa401c0b39cb17883cfbbaf9895ebc813c245d22916bcd42b5c33121972592575ac2be4f0");
-        params.put("version", "1.1.4");
-
-        final Gson gson = new Gson();
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(JSON, gson.toJson(params));
-        Request request = new Request.Builder()
-                .url("https://api.dnaerapp.com/zoology/feed/mobile/v1/feeds")
-                .post(body)
-                .build();
-
-        Call call = mOkHttpClient.newCall(request);
-        call.enqueue(new Callback() {
+        new Thread(new Runnable() {
             @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String str = response.body().string();
-//                Log.i("chg", "str:" + str);
-                ServerResponse serverResponse = gson.fromJson(str, ServerResponse.class);
-                final List<Found> list = serverResponse.getData();
-                for (Found found : list) {
-                    String type = found.getType();
-                    String factor = found.getFactor();
-                    ArrayList<HashMap> feedExts = found.getFeedExts();
-
-                    if (type.equals("0")) {
-                        Log.i("chg", "内容类型：" + type);
-                    } else if (type.equals("1")) {
-                        if (factor.equals("4")) {//精彩小视频
-
-                        } else {//发布的内容
-                            ArrayList<FoundSendData> foundSendData = parserJsonArray(gson.toJson(feedExts));
-                            if (isPullRefresh) {
-                                recycleViewData.add(1,foundSendData.get(0));
-                            } else {
-                                recycleViewData.add(foundSendData.get(0));
-                            }
-                        }
-                    } else if (type.equals("2")) {//好友推荐
-
-                    }
+            public void run() {
+                String rawName = "weibo_data_"+pageIndex;
+                int responseId = Main2Activity.this.getResources().getIdentifier(rawName,"raw",Main2Activity.this.getPackageName());//获取raw中的数据
+                if (responseId == 0){
+                    pageIndex = 0;
+                    refresh();
+                    return;
                 }
+                try {
+                    InputStream inputStream = Main2Activity.this.getResources().openRawResource(responseId);
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    String str = readStr(inputStreamReader);
+                    inputStream.close();
+                    Gson gson = new Gson();
+//                Log.i("chg", "str:" + str);
+                    ServerResponse serverResponse = gson.fromJson(str, ServerResponse.class);
+                    final List<Found> list = serverResponse.getData();
+                    for (Found found : list) {
+                        String type = found.getType();
+                        String factor = found.getFactor();
+                        ArrayList<HashMap> feedExts = found.getFeedExts();
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        isLoading = false;
-                        swipeRefreshLayout.setRefreshing(false);
-                        recyclerView.setModels(recycleViewData);
+                        if (type.equals("0")) {
+                            Log.i("chg", "内容类型：" + type);
+                        } else if (type.equals("1")) {
+                            if (factor.equals("4")) {//精彩小视频
+
+                            } else {//发布的内容
+                                ArrayList<FoundSendData> foundSendData = parserJsonArray(gson.toJson(feedExts));
+                                if (isPullRefresh) {
+                                    recycleViewData.add(1,foundSendData.get(0));
+                                } else {
+                                    recycleViewData.add(foundSendData.get(0));
+                                }
+                            }
+                        } else if (type.equals("2")) {//好友推荐
+
+                        }
                     }
-                });
+                    refresh();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        });
-
-
+        }).start();
     }
 
     public ArrayList<FoundSendData> parserJsonArray(String strJson) {
